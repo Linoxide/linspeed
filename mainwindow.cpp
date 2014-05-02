@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(&this->test, SIGNAL(succeeded(double, double)), 
 		this, SLOT(testSucceeded(double, double)));
 
+	connect(&this->test, SIGNAL(failed(const QString&)),
+		this, SLOT(testFailed(const QString&)));
+
 	connect(&this->test, SIGNAL(started()),
 		this, SLOT(testStarted()));
 }
@@ -40,6 +43,7 @@ void MainWindow::testSucceeded(double download_speed,
 	this->download->setValue(download_speed);
 	this->upload->setValue(upload_speed);
 
+	this->statusBar()->showMessage("Test succeeded");
 	startButton->setText("Restart");
 }
 
