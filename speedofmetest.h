@@ -18,6 +18,7 @@ private slots:
 
 private:
 	QTimer *timer;
+	void parseResults(const QString &results);
 
 };
 

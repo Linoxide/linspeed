@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QWebElement>
 #include <QWebFrame>
 #include <QWebView>
@@ -35,8 +37,16 @@ void SpeedOfMeTest::checkPage()
 		qDebug() << "starting test";
 		page.currentFrame()->evaluateJavaScript("SomApi.startTest();");
 	}
-	qDebug() << page.currentFrame()->toPlainText().toUtf8().constData();
-	timer->start(2000);
+
+	const QWebElement &el = page.currentFrame()->findFirstElement("#msg");
+
+	if(el.toInnerXml() == "") {
+		qDebug() << "empty";
+		timer->start(2000);
+	} else {
+		qDebug() << el.toInnerXml();
+		parseResults(el.toInnerXml());
+	}
 }
 
 void SpeedOfMeTest::start()
@@ -51,4 +61,15 @@ void SpeedOfMeTest::pageLoaded(bool)
 	page.currentFrame()->evaluateJavaScript(JS_COMPLETED);
 	page.currentFrame()->evaluateJavaScript(JS_ERROR);
 	page.currentFrame()->findFirstElement("#msg").setInnerXml("");
+}
+
+void SpeedOfMeTest::parseResults(const QString &results)
+{
+	QJsonDocument doc = QJsonDocument::fromJson(results.toUtf8());
+	QJsonObject obj = doc.object();
+	if(!obj["success"].toBool()) emit failed("");
+	else {
+		emit succeeded(obj["data"].toObject()["download"].toDouble(),
+			obj["data"].toObject()["upload"].toDouble());
+	}
 }
