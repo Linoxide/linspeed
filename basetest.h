@@ -10,9 +10,9 @@ public slots:
 	virtual void start() = 0;
 
 signals:
-	void running();
-	void error(const QString &error);
-	void success(double download_speed,
+	void started();
+	void failed(const QString &error);
+	void succeeded(double download_speed,
 		double upload_speed);
 };
 

@@ -1,6 +1,7 @@
 #ifndef SPEEDOFMETEST_H
 #define SPEEDOFMETEST_H
 
+#include <QTimer>
 #include "webtest.h"
 
 class SpeedOfMeTest : public WebTest {
@@ -10,6 +11,12 @@ public:
 	SpeedOfMeTest();
 
 	void start();
+
+private slots:
+	void checkPage();
+
+private:
+	QTimer *timer;
 
 };
 

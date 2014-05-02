@@ -15,6 +15,8 @@ public:
 private slots:
 	void testSucceeded(double download_speed,
 		double upload_speed);
+	void testFailed(const QString& text);
+	void testStarted();
 
 private:
 	SpeedMeter *download;
