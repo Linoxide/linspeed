@@ -1,0 +1,5 @@
+.*.swp
+moc_*
+*.o
+Makefile
+speedtest
