@@ -14,6 +14,7 @@ public:
 
 private slots:
 	void checkPage();
+	void pageLoaded(bool);
 
 private:
 	QTimer *timer;
