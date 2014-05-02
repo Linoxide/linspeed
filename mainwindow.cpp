@@ -18,9 +18,17 @@ MainWindow::MainWindow(QWidget *parent)
 	central->setLayout(layout);
 
 	this->setCentralWidget(central);
+
+	connect(startButton, SIGNAL(clicked()),
+		&this->test, SLOT(start()));
+
+	connect(&this->test, SIGNAL(success(double, double)), 
+		this, SLOT(testSucceeded(double, double)));
 }
 
-void MainWindow::startClicked()
+void MainWindow::testSucceeded(double download_speed,
+	double upload_speed)
 {
-
+	this->download->setValue(download_speed);
+	this->upload->setValue(upload_speed);
 }

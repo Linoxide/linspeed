@@ -1,9 +1,11 @@
 #include "speedofmetest.h"
 
-SpeedOfMeTest::SpeedOfMeTest() {
+SpeedOfMeTest::SpeedOfMeTest()
+{
 	
 }
 
-void SpeedOfMeTest::start() {
+void SpeedOfMeTest::start()
+{
 	emit success(10, 4);
 }
