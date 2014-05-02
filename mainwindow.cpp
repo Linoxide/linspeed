@@ -1,4 +1,5 @@
 #include <QGridLayout>
+#include <QStatusBar>
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 	this->setCentralWidget(central);
 
+	QStatusBar *sbar = new QStatusBar;
+	this->setStatusBar(sbar);
+
 	connect(startButton, SIGNAL(clicked()),
 		&this->test, SLOT(start()));
 
@@ -35,8 +39,10 @@ void MainWindow::testSucceeded(double download_speed,
 
 void MainWindow::testFailed(const QString& text)
 {
+	this->statusBar()->showMessage("Test failed");
 }
 
 void MainWindow::testStarted()
 {
+	this->statusBar()->showMessage("Test running");
 }
