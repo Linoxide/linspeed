@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 	this->setCentralWidget(central);
 
 	QStatusBar *sbar = new QStatusBar;
+	sbar->showMessage("Press Start to measure your Internet speed");
 	this->setStatusBar(sbar);
 
 	connect(startButton, SIGNAL(clicked()),
@@ -28,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 	connect(&this->test, SIGNAL(succeeded(double, double)), 
 		this, SLOT(testSucceeded(double, double)));
+
+	connect(&this->test, SIGNAL(started()),
+		this, SLOT(testStarted()));
 }
 
 void MainWindow::testSucceeded(double download_speed,
@@ -35,14 +39,18 @@ void MainWindow::testSucceeded(double download_speed,
 {
 	this->download->setValue(download_speed);
 	this->upload->setValue(upload_speed);
+
+	startButton->setText("Restart");
 }
 
 void MainWindow::testFailed(const QString& text)
 {
 	this->statusBar()->showMessage("Test failed");
+	startButton->setText("Try again");
 }
 
 void MainWindow::testStarted()
 {
 	this->statusBar()->showMessage("Test running");
+	startButton->setText("Cancel");
 }
