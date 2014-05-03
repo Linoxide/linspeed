@@ -17,6 +17,8 @@ public slots:
 private:
 	QLabel *value;
 
+	void setLabelSize(const QString &longestText, QLabel *label);
+
 };
 
 #endif

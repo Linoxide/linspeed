@@ -1,4 +1,5 @@
 #include <QGridLayout>
+#include <QSizePolicy>
 #include <QStatusBar>
 #include "mainwindow.h"
 
@@ -23,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
 	QStatusBar *sbar = new QStatusBar;
 	sbar->showMessage("Click Start");
 	this->setStatusBar(sbar);
+
+	setFixedSize(sizeHint());
 
 	connect(startButton, SIGNAL(clicked()),
 		&this->test, SLOT(start()));
