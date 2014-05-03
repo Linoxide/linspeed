@@ -3,7 +3,6 @@
 #include <QJsonObject>
 #include <QWebElement>
 #include <QWebFrame>
-#include <QWebView>
 #include "speedofmetest.h"
 
 const int CHECK_INTERVAL = 500;
@@ -19,10 +18,6 @@ const QString JS_ERROR =
 
 SpeedOfMeTest::SpeedOfMeTest()
 {
-	QWebView *webview = new QWebView;
-	webview->setPage(&page);
-	webview->show();
-
 	timer = new QTimer(this);
 	timer->setSingleShot(true);
 	connect(timer, SIGNAL(timeout()),
@@ -40,18 +35,14 @@ void SpeedOfMeTest::tryGetResults()
 	}
 
 	if(el.toInnerXml() == "") {
-		qDebug() << "empty";
 		timer->start(2000);
 	} else {
-		qDebug() << el.toInnerXml();
 		parseResults(el.toInnerXml());
 	}
 }
 
 void SpeedOfMeTest::tryStartTest()
 {
-	qDebug() << "try start test";
-	qDebug() << page.currentFrame()->evaluateJavaScript("SomApi.startTest");
 	bool ready =  page.currentFrame()->evaluateJavaScript("SomApi.startTest instanceof Function").toBool();
 	if(ready) {
 		page.currentFrame()->evaluateJavaScript("SomApi.startTest();");
@@ -123,8 +114,6 @@ void SpeedOfMeTest::parseResults(const QString &results)
 		const QJsonValue &down = obj["data"].toObject()["download"];
 		const QJsonValue &up = obj["data"].toObject()["upload"];
 
-		qDebug() << down << up;
-		
 		if(!down.isDouble() || !up.isDouble())	{
 			emit failed("wrong data type");
 		} else {
