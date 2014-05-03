@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
 	startButton = new QPushButton("Start");
 
 	QGridLayout *layout = new QGridLayout;
-	layout->addWidget(startButton, 0, 0, 1, 2);
-	layout->addWidget(download, 1, 0);
-	layout->addWidget(upload, 1, 1);
+	layout->addWidget(download, 0, 0);
+	layout->addWidget(upload, 0, 1);
+	layout->addWidget(startButton, 1, 0, 1, 2);
 
 	QWidget *central = new QWidget;
 	central->setLayout(layout);
