@@ -5,7 +5,7 @@
 #include <QWebFrame>
 #include "speedofmetest.h"
 
-const int CHECK_INTERVAL = 500;
+const int CHECK_INTERVAL = 1000;
 const int MAX_NUM_CHECK = 60;
 
 const QString TEST_URL = "http://speedof.me/api/doc/sample.html";
