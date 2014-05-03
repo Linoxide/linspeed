@@ -34,6 +34,10 @@ SpeedOfMeTest::SpeedOfMeTest()
 void SpeedOfMeTest::tryGetResults()
 {
 	const QWebElement &el = page.currentFrame()->findFirstElement("#msg");
+	if(el.isNull()) {
+		running = false;
+		emit failed("");
+	}
 
 	if(el.toInnerXml() == "") {
 		qDebug() << "empty";
@@ -42,8 +46,6 @@ void SpeedOfMeTest::tryGetResults()
 		qDebug() << el.toInnerXml();
 		parseResults(el.toInnerXml());
 	}
-
-	timesChecked++;
 }
 
 void SpeedOfMeTest::tryStartTest()
@@ -92,7 +94,14 @@ void SpeedOfMeTest::pageLoaded(bool)
 	timer->start(2000);
 	page.currentFrame()->evaluateJavaScript(JS_COMPLETED);
 	page.currentFrame()->evaluateJavaScript(JS_ERROR);
-	page.currentFrame()->findFirstElement("#msg").setInnerXml("");
+
+	QWebElement el = page.currentFrame()->findFirstElement("#msg");
+	if(el.isNull()) {
+		running = false;
+		emit failed("");
+	}
+
+	el.setInnerXml("");
 }
 
 void SpeedOfMeTest::parseResults(const QString &results)
