@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 	this->setCentralWidget(central);
 
 	QStatusBar *sbar = new QStatusBar;
-	sbar->showMessage("Press Start to measure your Internet speed");
+	sbar->showMessage("Click Start");
 	this->setStatusBar(sbar);
 
 	connect(startButton, SIGNAL(clicked()),
