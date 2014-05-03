@@ -7,7 +7,7 @@
 #include "speedofmetest.h"
 
 const int CHECK_INTERVAL = 500;
-const int MAX_NUM_CHECK = 100;
+const int MAX_NUM_CHECK = 60;
 
 const QString TEST_URL = "http://speedof.me/api/doc/sample.html";
 const QString JS_COMPLETED = 
@@ -51,6 +51,7 @@ void SpeedOfMeTest::tryGetResults()
 void SpeedOfMeTest::tryStartTest()
 {
 	qDebug() << "try start test";
+	qDebug() << page.currentFrame()->evaluateJavaScript("SomApi.startTest");
 	bool ready =  page.currentFrame()->evaluateJavaScript("SomApi.startTest instanceof Function").toBool();
 	if(ready) {
 		page.currentFrame()->evaluateJavaScript("SomApi.startTest();");
@@ -62,23 +63,29 @@ void SpeedOfMeTest::checkPage()
 {
 	if(!running) return;
 
-	if(!webTestStarted) {
-		tryStartTest();
-	} else {
-		tryGetResults();
+	if(loaded) {
+		if(!webTestStarted) {
+			tryStartTest();
+		} else {
+			tryGetResults();
+		}
 	}
 
 	timesChecked++;
 	if(running && timesChecked < MAX_NUM_CHECK) {
 		timer->start(CHECK_INTERVAL);
+	} else {	
+		page.currentFrame()->load(QUrl(""));
 	}
 }
 
 void SpeedOfMeTest::start()
 {
 	if(!running) {
+		timer->start(2000);
 		page.currentFrame()->load(TEST_URL);
 		running = true;
+		loaded = false;
 		timesChecked = 0;
 		webTestStarted = false;
 		emit started();
@@ -91,7 +98,8 @@ void SpeedOfMeTest::start()
 
 void SpeedOfMeTest::pageLoaded(bool)
 {
-	timer->start(2000);
+	if(!running) return;
+
 	page.currentFrame()->evaluateJavaScript(JS_COMPLETED);
 	page.currentFrame()->evaluateJavaScript(JS_ERROR);
 
@@ -102,21 +110,26 @@ void SpeedOfMeTest::pageLoaded(bool)
 	}
 
 	el.setInnerXml("");
+
+	loaded = true;
 }
 
 void SpeedOfMeTest::parseResults(const QString &results)
 {
 	QJsonDocument doc = QJsonDocument::fromJson(results.toUtf8());
 	QJsonObject obj = doc.object();
-	if(!obj["success"].toBool()) emit failed("");
+	if(!obj["success"].toBool()) emit failed("webtest returned error");
 	else {
 		const QJsonValue &down = obj["data"].toObject()["download"];
-		const QJsonValue &up = obj["data"].toObject()["up"];
+		const QJsonValue &up = obj["data"].toObject()["upload"];
+
+		qDebug() << down << up;
 		
-		if(!down.isDouble() || !up.isDouble())	
-			emit failed("");
-		else
+		if(!down.isDouble() || !up.isDouble())	{
+			emit failed("wrong data type");
+		} else {
 			emit succeeded(down.toDouble(), up.toDouble());
+		}
 	}
 	running = false;
 }

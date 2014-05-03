@@ -21,9 +21,10 @@ private:
 	bool running;
 	int timesChecked;
 	bool webTestStarted;
+	bool loaded;
+
 	void tryStartTest();
 	void tryGetResults();
-
 	void parseResults(const QString &results);
 
 };
