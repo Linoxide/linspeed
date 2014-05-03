@@ -58,6 +58,8 @@ void SpeedOfMeTest::tryStartTest()
 
 void SpeedOfMeTest::checkPage()
 {
+	if(!running) return;
+
 	if(!webTestStarted) {
 		tryStartTest();
 	} else {
@@ -72,11 +74,17 @@ void SpeedOfMeTest::checkPage()
 
 void SpeedOfMeTest::start()
 {
-	page.currentFrame()->load(TEST_URL);
-	running = true;
-	timesChecked = 0;
-	webTestStarted = false;
-	emit started();
+	if(!running) {
+		page.currentFrame()->load(TEST_URL);
+		running = true;
+		timesChecked = 0;
+		webTestStarted = false;
+		emit started();
+	} else {
+		running = false;
+		page.currentFrame()->setUrl(QUrl(""));
+		emit failed("");
+	}
 }
 
 void SpeedOfMeTest::pageLoaded(bool)
