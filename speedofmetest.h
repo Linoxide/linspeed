@@ -18,6 +18,12 @@ private slots:
 
 private:
 	QTimer *timer;
+	bool running;
+	int timesChecked;
+	bool webTestStarted;
+	void tryStartTest();
+	void tryGetResults();
+
 	void parseResults(const QString &results);
 
 };

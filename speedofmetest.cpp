@@ -6,6 +6,9 @@
 #include <QWebView>
 #include "speedofmetest.h"
 
+const int CHECK_INTERVAL = 500;
+const int MAX_NUM_CHECK = 100;
+
 const QString TEST_URL = "http://speedof.me/api/doc/sample.html";
 const QString JS_COMPLETED = 
 	"SomApi.onTestCompleted = function(res) { "
@@ -28,16 +31,8 @@ SpeedOfMeTest::SpeedOfMeTest()
 		this, SLOT(pageLoaded(bool)));
 }
 
-void SpeedOfMeTest::checkPage()
+void SpeedOfMeTest::tryGetResults()
 {
-	static int  num = 0;
-	++num;
-
-	if(num == 2) {
-		qDebug() << "starting test";
-		page.currentFrame()->evaluateJavaScript("SomApi.startTest();");
-	}
-
 	const QWebElement &el = page.currentFrame()->findFirstElement("#msg");
 
 	if(el.toInnerXml() == "") {
@@ -47,11 +42,40 @@ void SpeedOfMeTest::checkPage()
 		qDebug() << el.toInnerXml();
 		parseResults(el.toInnerXml());
 	}
+
+	timesChecked++;
+}
+
+void SpeedOfMeTest::tryStartTest()
+{
+	qDebug() << "try start test";
+	bool ready =  page.currentFrame()->evaluateJavaScript("SomApi.startTest instanceof Function").toBool();
+	if(ready) {
+		page.currentFrame()->evaluateJavaScript("SomApi.startTest();");
+		webTestStarted = true;
+	}
+}
+
+void SpeedOfMeTest::checkPage()
+{
+	if(!webTestStarted) {
+		tryStartTest();
+	} else {
+		tryGetResults();
+	}
+
+	timesChecked++;
+	if(running && timesChecked < MAX_NUM_CHECK) {
+		timer->start(CHECK_INTERVAL);
+	}
 }
 
 void SpeedOfMeTest::start()
 {
 	page.currentFrame()->load(TEST_URL);
+	running = true;
+	timesChecked = 0;
+	webTestStarted = false;
 	emit started();
 }
 
@@ -72,4 +96,5 @@ void SpeedOfMeTest::parseResults(const QString &results)
 		emit succeeded(obj["data"].toObject()["download"].toDouble(),
 			obj["data"].toObject()["upload"].toDouble());
 	}
+	running = false;
 }
