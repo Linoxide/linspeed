@@ -110,8 +110,13 @@ void SpeedOfMeTest::parseResults(const QString &results)
 	QJsonObject obj = doc.object();
 	if(!obj["success"].toBool()) emit failed("");
 	else {
-		emit succeeded(obj["data"].toObject()["download"].toDouble(),
-			obj["data"].toObject()["upload"].toDouble());
+		const QJsonValue &down = obj["data"].toObject()["download"];
+		const QJsonValue &up = obj["data"].toObject()["up"];
+		
+		if(!down.isDouble() || !up.isDouble())	
+			emit failed("");
+		else
+			emit succeeded(down.toDouble(), up.toDouble());
 	}
 	running = false;
 }
