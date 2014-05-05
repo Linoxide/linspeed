@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speed test</title>
+    <meta name="viewport" content="user-scalable=no, width=device-width, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="http://speedof.me/api/api.js" type="text/javascript"></script>
+</head>
+<body>
+    <h2>Speed test</h2>
+
+    <button onclick="SomApi.startTest()">Start Test</button>
+    <div id="msg"></div>
+    
+    <script type="text/javascript">
+		function getDomain(url)
+		{
+			return url.match(/:\/\/(www\.)?(.[^/:]+)/)[2];
+		}
+
+        SomApi.account = "!!!!";  //your API Key here
+        SomApi.domainName = getDomain(document.URL);     //your domain or sub-domain here
+        SomApi.onTestCompleted = resp_handler("succeess");
+        SomApi.onError = resp_handler("error");
+        SomApi.onProgress = resp_handler("progress");
+
+		//set config values
+		SomApi.config.sustainTime = "8";
+		SomApi.config.testServerEnabled = false;
+		SomApi.config.userInfoEnabled = false;
+		SomApi.config.latencyTestEnabled = false;
+		SomApi.config.uploadTestEnabled = true;
+		SomApi.config.progress.enabled = true;
+		SomApi.config.progress.verbose = true;
+
+        var msgDiv = document.getElementById("msg");
+
+		function resp_handler(status) {
+			return function(data) {
+				msgDiv.innerHTML = JSON.stringify({
+					"status": status,
+					"data": data
+				});
+			};
+		}
+    </script>
+	
+</body>
+</html>
