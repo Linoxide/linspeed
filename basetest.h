@@ -12,8 +12,10 @@ public slots:
 signals:
 	void started();
 	void failed(const QString &error);
-	void succeeded(double download_speed,
-		double upload_speed);
+	void succeeded(double downloadSpeed,
+		double uploadSpeed);
+	void progressed(const QString &testName,
+		int testProgress, double currentSpeed);
 };
 
 #endif

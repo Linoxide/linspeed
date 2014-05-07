@@ -1,6 +1,4 @@
 #include <cstdlib>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QWebElement>
 #include <QWebFrame>
 #include "speedofmetest.h"
@@ -8,13 +6,7 @@
 const int CHECK_INTERVAL = 1000;
 const int MAX_NUM_CHECK = 60;
 
-const QString TEST_URL = "http://speedof.me/api/doc/sample.html";
-const QString JS_COMPLETED = 
-	"SomApi.onTestCompleted = function(res) { "
-	"msgDiv.innerHTML = JSON.stringify({ 'success': true, 'data': res }) }";
-const QString JS_ERROR = 
-	"SomApi.onTestError = function(res) { "
-	"msgDiv.innerHTML = JSON.stringify({ 'success': false, 'data': res }) }";
+const QString TEST_URL = "http://michal.chom.pl/speedtest.html";
 
 SpeedOfMeTest::SpeedOfMeTest()
 {
@@ -26,19 +18,55 @@ SpeedOfMeTest::SpeedOfMeTest()
 		this, SLOT(pageLoaded(bool)));
 }
 
+QString SpeedOfMeTest::parseField(const QString& name) const
+{
+	return page.currentFrame()->findFirstElement('#'+name).toInnerXml();
+}
+
 void SpeedOfMeTest::tryGetResults()
 {
-	const QWebElement &el = page.currentFrame()->findFirstElement("#msg");
-	if(el.isNull()) {
-		running = false;
-		emit failed("");
+	QString status = parseField("status");
+	if(status == "progress") {
+		parseProgress();
+	} else if(status == "error") {
+		parseError();
+	} else if(status == "success") {
+		parseSuccess();
 	}
 
-	if(el.toInnerXml() == "") {
-		timer->start(2000);
-	} else {
-		parseResults(el.toInnerXml());
+}
+
+void SpeedOfMeTest::parseProgress()
+{
+	const QString &type = parseField("type");
+	int num_tests;
+
+	// should be retrieved from API, but it does not provide such info
+	if(type=="download")
+		num_tests = 3;
+	else if(type=="upload")
+		num_tests = 1;
+	else {
+		return; // don't crash just because of bad progress notification
 	}
+
+	emit progressed(type, ((parseField("pass").toInt()-1)*100+parseField("percentDone").toInt())/num_tests,
+		parseField("currentSpeed").toDouble());
+}
+
+void SpeedOfMeTest::parseSuccess()
+{
+	const QString &down = parseField("download"),
+		&up = parseField("upload");
+
+	running = false;
+	emit succeeded(down.toDouble(), up.toDouble());
+}
+
+void SpeedOfMeTest::parseError()
+{
+	running = false;
+	emit failed(parseField("error"));
 }
 
 void SpeedOfMeTest::tryStartTest()
@@ -65,7 +93,11 @@ void SpeedOfMeTest::checkPage()
 	timesChecked++;
 	if(running && timesChecked < MAX_NUM_CHECK) {
 		timer->start(CHECK_INTERVAL);
-	} else {	
+	} else {
+		if(running) {
+			running = false;
+			emit failed("timeout");
+		}
 		page.currentFrame()->load(QUrl(""));
 	}
 }
@@ -83,7 +115,7 @@ void SpeedOfMeTest::start()
 	} else {
 		running = false;
 		page.currentFrame()->setUrl(QUrl(""));
-		emit failed("");
+		emit failed("cancelled");
 	}
 }
 
@@ -91,34 +123,11 @@ void SpeedOfMeTest::pageLoaded(bool)
 {
 	if(!running) return;
 
-	page.currentFrame()->evaluateJavaScript(JS_COMPLETED);
-	page.currentFrame()->evaluateJavaScript(JS_ERROR);
-
-	QWebElement el = page.currentFrame()->findFirstElement("#msg");
+	QWebElement el = page.currentFrame()->findFirstElement("#status");
 	if(el.isNull()) {
 		running = false;
-		emit failed("");
+		emit failed("wrong page loaded");
 	}
-
-	el.setInnerXml("");
 
 	loaded = true;
-}
-
-void SpeedOfMeTest::parseResults(const QString &results)
-{
-	QJsonDocument doc = QJsonDocument::fromJson(results.toUtf8());
-	QJsonObject obj = doc.object();
-	if(!obj["success"].toBool()) emit failed("webtest returned error");
-	else {
-		const QJsonValue &down = obj["data"].toObject()["download"];
-		const QJsonValue &up = obj["data"].toObject()["upload"];
-
-		if(!down.isDouble() || !up.isDouble())	{
-			emit failed("wrong data type");
-		} else {
-			emit succeeded(down.toDouble(), up.toDouble());
-		}
-	}
-	running = false;
 }

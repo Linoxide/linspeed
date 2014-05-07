@@ -38,6 +38,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 	connect(&this->test, SIGNAL(started()),
 		this, SLOT(testStarted()));
+	
+	connect(&this->test, SIGNAL(progressed(const QString&, int, double)),
+		this, SLOT(testProgressed(const QString&, int, double)));
+
 }
 
 void MainWindow::testSucceeded(double download_speed,
@@ -56,6 +60,19 @@ void MainWindow::testFailed(const QString& text)
 	this->statusBar()->showMessage("Test failed");
 	startButton->setText("Try again");
 }
+
+void MainWindow::testProgressed(const QString &testName,
+	int testProgress, double currentSpeed)
+{
+	QString msg = "%1 progress: %2%";
+	msg = msg.arg(testName).arg(testProgress);
+	if(testName=="download")
+		this->download->setValue(currentSpeed);
+	else if(testName=="upload")
+		this->upload->setValue(currentSpeed);
+	this->statusBar()->showMessage(msg);
+}
+
 
 void MainWindow::testStarted()
 {

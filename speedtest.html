@@ -17,6 +17,7 @@
 	<div id="upload"></div>
 	<!-- progress -->
 	<div id="type"></div>
+	<div id="pass"></div>
 	<div id="percentDone"></div>
 	<div id="currentSpeed"></div>
 	<!-- error -->
@@ -41,7 +42,7 @@
 		SomApi.config.testServerEnabled = false;
 		SomApi.config.userInfoEnabled = false;
 		SomApi.config.latencyTestEnabled = false;
-		SomApi.config.uploadTestEnabled = true;
+		SomApi.config.uploadTestEnabled = false;
 		SomApi.config.progress.enabled = true;
 		SomApi.config.progress.verbose = true;
 
@@ -50,7 +51,6 @@
 				data["status"] = status;
 
 				for(prop in data) {
-					console.log(prop);
 					var node = document.getElementById(prop);
 					if(node==null) continue;
 					node.innerHTML = data[prop];

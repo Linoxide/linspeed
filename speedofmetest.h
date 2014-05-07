@@ -23,9 +23,12 @@ private:
 	bool webTestStarted;
 	bool loaded;
 
+	QString parseField(const QString &name) const;
 	void tryStartTest();
 	void tryGetResults();
-	void parseResults(const QString &results);
+	void parseProgress();
+	void parseError();
+	void parseSuccess();
 
 };
 
