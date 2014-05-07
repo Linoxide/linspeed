@@ -10,7 +10,19 @@
     <h2>Speed test</h2>
 
     <button onclick="SomApi.startTest()">Start Test</button>
-    <div id="msg"></div>
+    <div id="status"></div>
+
+	<!-- success -->
+	<div id="download"></div>
+	<div id="upload"></div>
+	<!-- progress -->
+	<div id="type"></div>
+	<div id="percentDone"></div>
+	<div id="currentSpeed"></div>
+	<!-- error -->
+	<div id="code"></div>
+	<div id="message"></div>
+
     
     <script type="text/javascript">
 		function getDomain(url)
@@ -18,9 +30,9 @@
 			return url.match(/:\/\/(www\.)?(.[^/:]+)/)[2];
 		}
 
-        SomApi.account = "!!!!";  //your API Key here
+        SomApi.account = ""; //your API Key here
         SomApi.domainName = getDomain(document.URL);     //your domain or sub-domain here
-        SomApi.onTestCompleted = resp_handler("succeess");
+        SomApi.onTestCompleted = resp_handler("success");
         SomApi.onError = resp_handler("error");
         SomApi.onProgress = resp_handler("progress");
 
@@ -33,14 +45,16 @@
 		SomApi.config.progress.enabled = true;
 		SomApi.config.progress.verbose = true;
 
-        var msgDiv = document.getElementById("msg");
-
 		function resp_handler(status) {
 			return function(data) {
-				msgDiv.innerHTML = JSON.stringify({
-					"status": status,
-					"data": data
-				});
+				data["status"] = status;
+
+				for(prop in data) {
+					console.log(prop);
+					var node = document.getElementById(prop);
+					if(node==null) continue;
+					node.innerHTML = data[prop];
+				}
 			};
 		}
     </script>
