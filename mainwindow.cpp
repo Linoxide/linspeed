@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QGridLayout>
 #include <QSizePolicy>
 #include <QStatusBar>

@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "debugpage.h"
 
 DebugPage::DebugPage(QWidget *parent) : QWebPage(parent) {}
