@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 	download = new SpeedMeter("Download");
 	upload = new SpeedMeter("Upload");
 
-	startButton = new QPushButton("Start");
+	startButton = new QPushButton("Begin Test");
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(download, 0, 0);
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 	this->setCentralWidget(central);
 
 	QStatusBar *sbar = new QStatusBar;
-	sbar->showMessage("Click Start");
+	sbar->showMessage("Click Begin Test");
 	this->setStatusBar(sbar);
 
 	setFixedSize(sizeHint());
@@ -52,7 +52,7 @@ void MainWindow::testSucceeded(double download_speed,
 	this->upload->setValue(upload_speed);
 
 	this->statusBar()->showMessage("Test succeeded");
-	startButton->setText("Restart");
+	startButton->setText("Begin Test");
 }
 
 void MainWindow::testFailed(const QString& text)
