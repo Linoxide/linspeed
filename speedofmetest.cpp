@@ -10,6 +10,7 @@ const QString TEST_URL = "http://michal.chom.pl/speedtest.html";
 
 SpeedOfMeTest::SpeedOfMeTest()
 {
+	running = false;
 	timer = new QTimer(this);
 	timer->setSingleShot(true);
 	connect(timer, SIGNAL(timeout()),
