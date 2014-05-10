@@ -27,8 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
 	this->setCentralWidget(central);
 
 	QStatusBar *sbar = new QStatusBar;
-	sbar->showMessage("Status: Ready");
 	this->setStatusBar(sbar);
+	statusMessage = new QLabel;
+	sbar->addWidget(statusMessage, 1);
+	clearStatusMessage();
 
 	setFixedSize(sizeHint());
 
@@ -74,21 +76,21 @@ void MainWindow::testSucceeded(double download_speed,
 	this->download->setValue(download_speed);
 	this->upload->setValue(upload_speed);
 
-	this->statusBar()->showMessage("Status: Ready");
+	clearStatusMessage();
 	startButton->setText("Begin Test");
 }
 
 void MainWindow::testFailed(const QString& text)
 {
 	qDebug() << text;
-	this->statusBar()->showMessage("Status: Test failed");
+	setStatusMessage("Status: Test failed");
 	startButton->setText("Try again");
 }
 
 void MainWindow::testProgressed(const QString &testName,
 	int testProgress, double currentSpeed)
 {
-	QString msg = "Status: %1 in progress";
+	QString msg = "%1 in progress";
 	if(testName=="download") {
 		msg = msg.arg("Download");
 	} else {
@@ -99,15 +101,25 @@ void MainWindow::testProgressed(const QString &testName,
 		this->download->setValue(currentSpeed);
 	else if(testName=="upload")
 		this->upload->setValue(currentSpeed);
-	this->statusBar()->showMessage(msg);
+	setStatusMessage(msg);
 }
 
 
 void MainWindow::testStarted()
 {
-	this->statusBar()->showMessage("Status: Test in progress");
+	setStatusMessage("Test in progress");
 	this->download->setEmpty();
 	startButton->setText("Cancel");
+}
+
+void MainWindow::setStatusMessage(const QString &str) 
+{
+	statusMessage->setText(QString("Status: %1").arg(str));
+}
+
+void MainWindow::clearStatusMessage()
+{
+	setStatusMessage("Ready");
 }
 
 void MainWindow::close() {}

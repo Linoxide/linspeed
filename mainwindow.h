@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>
 #include "speedmeter.h"
@@ -22,6 +23,9 @@ private slots:
 	void testProgressed(const QString &testName,
 		int testProgress, double currentSpeed);
 	void testStarted();
+	
+	void setStatusMessage(const QString &str);
+	void clearStatusMessage();
 
 	void report();
 	void about();
@@ -31,6 +35,7 @@ private:
 	SpeedMeter *download;
 	SpeedMeter *upload;
 	QPushButton *startButton;
+	QLabel *statusMessage;
 
 	SpeedOfMeTest test;
 };
