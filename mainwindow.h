@@ -12,6 +12,9 @@ class MainWindow : public QMainWindow {
 public:
 	MainWindow(QWidget *parent = 0);
 
+protected:
+	void contextMenuEvent(QContextMenuEvent *event);
+
 private slots:
 	void testSucceeded(double download_speed,
 		double upload_speed);
@@ -19,6 +22,10 @@ private slots:
 	void testProgressed(const QString &testName,
 		int testProgress, double currentSpeed);
 	void testStarted();
+
+	void report();
+	void about();
+	void close();
 
 private:
 	SpeedMeter *download;

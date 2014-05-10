@@ -1,5 +1,9 @@
+#include <QtGui>
+#include <QAction>
+#include <QContextMenuEvent>
 #include <QDebug>
 #include <QGridLayout>
+#include <QMenu>
 #include <QSizePolicy>
 #include <QStatusBar>
 #include "mainwindow.h"
@@ -42,8 +46,27 @@ MainWindow::MainWindow(QWidget *parent)
 	
 	connect(&this->test, SIGNAL(progressed(const QString&, int, double)),
 		this, SLOT(testProgressed(const QString&, int, double)));
-
 }
+
+void MainWindow::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu context(this);
+
+	QAction *reportAct = new QAction("&Report", this);
+	connect(reportAct, SIGNAL(triggered()), this, SLOT(report()));
+	context.addAction(reportAct);
+
+	QAction *aboutAct = new QAction("&About", this);
+	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+	context.addAction(aboutAct);
+
+	QAction *aboutQtAct = new QAction("About &Qt", this);
+	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+	context.addAction(aboutQtAct);
+
+	context.exec(event->globalPos());
+}
+
 
 void MainWindow::testSucceeded(double download_speed,
 	double upload_speed)
@@ -86,3 +109,8 @@ void MainWindow::testStarted()
 	this->download->setEmpty();
 	startButton->setText("Cancel");
 }
+
+void MainWindow::close() {}
+void MainWindow::report() {}
+void MainWindow::about() {}
+
