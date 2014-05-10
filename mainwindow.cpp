@@ -92,7 +92,7 @@ void MainWindow::testFailed(const QString& text)
 }
 
 void MainWindow::testProgressed(const QString &testName,
-	int testProgress, double currentSpeed)
+	int /*testProgress*/, double currentSpeed)
 {
 	QString msg = "%1 in progress";
 	if(testName=="download") {
