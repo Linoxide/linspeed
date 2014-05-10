@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
 	this->setStatusBar(sbar);
 	statusMessage = new QLabel;
 	sbar->addWidget(statusMessage, 1);
+	sbar->setSizeGripEnabled(false);
 	clearStatusMessage();
 
 	setFixedSize(sizeHint());
