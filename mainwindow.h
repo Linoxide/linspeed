@@ -29,7 +29,6 @@ private slots:
 
 	void report();
 	void about();
-	void close();
 
 private:
 	SpeedMeter *download;

@@ -66,6 +66,10 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 	context.addAction(aboutQtAct);
 
+	QAction *closeAct = new QAction("&Close", this);
+	connect(closeAct, SIGNAL(triggered()), this, SLOT(close()));
+	context.addAction(closeAct);
+
 	context.exec(event->globalPos());
 }
 
@@ -122,7 +126,6 @@ void MainWindow::clearStatusMessage()
 	setStatusMessage("Ready");
 }
 
-void MainWindow::close() {}
 void MainWindow::report() {}
 void MainWindow::about() {}
 
