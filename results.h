@@ -11,7 +11,7 @@ private:
 	QList<QVariant> getList() const;
 
 public:
-	void addResult(double upload, double download, 
+	void addResult(double download, double upload, 
 		const QDateTime &time=QDateTime::currentDateTime());
 	QPair<double, double> getLastSpeed() const;
 	bool empty() const;
@@ -29,3 +29,5 @@ struct ResultsRecord {
 
 Q_DECLARE_METATYPE(ResultsRecord)
 
+QDataStream &operator<<(QDataStream &out, const ResultsRecord &record);
+QDataStream &operator>>(QDataStream &in, ResultsRecord &record);

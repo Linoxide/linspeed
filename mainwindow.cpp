@@ -7,6 +7,7 @@
 #include <QSizePolicy>
 #include <QStatusBar>
 #include "mainwindow.h"
+#include "results.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -48,6 +49,13 @@ MainWindow::MainWindow(QWidget *parent)
 	
 	connect(&this->test, SIGNAL(progressed(const QString&, int, double)),
 		this, SLOT(testProgressed(const QString&, int, double)));
+
+	Results results;
+	if(!results.empty()) {
+		QPair<double, double> resPair = results.getLastSpeed();
+		this->download->setValue(resPair.first);
+		this->upload->setValue(resPair.second);
+	}
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
@@ -74,14 +82,17 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 }
 
 
-void MainWindow::testSucceeded(double download_speed,
-	double upload_speed)
+void MainWindow::testSucceeded(double downloadSpeed,
+	double uploadSpeed)
 {
-	this->download->setValue(download_speed);
-	this->upload->setValue(upload_speed);
+	this->download->setValue(downloadSpeed);
+	this->upload->setValue(uploadSpeed);
 
 	clearStatusMessage();
 	startButton->setText("Begin Test");
+
+	Results res;
+	res.addResult(downloadSpeed, uploadSpeed);
 }
 
 void MainWindow::testFailed(const QString& text)
@@ -113,6 +124,7 @@ void MainWindow::testStarted()
 {
 	setStatusMessage("Test in progress");
 	this->download->setEmpty();
+	this->upload->setEmpty();
 	startButton->setText("Cancel");
 }
 

@@ -9,9 +9,9 @@ QList<QVariant> Results::getList() const
 	return listVar.toList();
 }
 
-void Results::addResult(double upload, double download, const QDateTime& time)
+void Results::addResult(double download, double upload, const QDateTime& time)
 {
-	ResultsRecord rec = {time, upload, download};
+	ResultsRecord rec = {time, download, upload};
 	QVariant var = QVariant::fromValue(rec);
 
 	QList<QVariant> list = getList();
@@ -59,3 +59,16 @@ QString ResultsRecord::toString() const
 	str = str.arg(download).arg(upload);
 	return str;
 }
+
+QDataStream &operator<<(QDataStream &out, const ResultsRecord &record)
+{
+	out << record.time << record.download << record.upload;
+	return out;
+}
+
+QDataStream &operator>>(QDataStream &in, ResultsRecord &record)
+{
+	in >> record.time >> record.download >> record.upload;
+	return in;
+}
+
