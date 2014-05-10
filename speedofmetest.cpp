@@ -6,7 +6,7 @@
 const int CHECK_INTERVAL = 1000;
 const int MAX_NUM_CHECK = 60;
 
-const QString TEST_URL = "http://michal.chom.pl/speedtest.html";
+const QString TEST_URL = "http://ii-lo.tarnow.pl/~michal/speedtest.html";
 
 SpeedOfMeTest::SpeedOfMeTest()
 {
