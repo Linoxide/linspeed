@@ -54,8 +54,8 @@ QString Results::toString() const
 
 QString ResultsRecord::toString() const
 {
-	QString str = "&1 &2 &3";
-	str = str.arg(time.toString("yyyy-mm-dd hh-mmmap"));
+	QString str = "%1 %2 Mbps %3 Mbps";
+	str = str.arg(time.toString("yyyy-MM-dd hh-mm ap"));
 	str = str.arg(download).arg(upload);
 	return str;
 }
