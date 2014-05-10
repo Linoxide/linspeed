@@ -13,6 +13,7 @@ public:
 
 public slots:
 	void setValue(double num);
+	void setEmpty();
 
 private:
 	QLabel *value;

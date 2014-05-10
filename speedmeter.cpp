@@ -7,7 +7,8 @@ SpeedMeter::SpeedMeter(const QString& text, QWidget *parent)
 	QLabel *label = new QLabel(text);
 	label->setAlignment(Qt::AlignCenter);
 
-	value = new QLabel("-");
+	value = new QLabel;
+	setEmpty();
 	setLabelSize("124.23 Mbps", value);
 	value->setAlignment(Qt::AlignCenter);
 
@@ -16,6 +17,11 @@ SpeedMeter::SpeedMeter(const QString& text, QWidget *parent)
 
 	layout->addWidget(label);
 	layout->addWidget(value);
+}
+
+void SpeedMeter::setEmpty()
+{
+	this->value->setText("--- Mbps");
 }
 
 void SpeedMeter::setValue(double num)

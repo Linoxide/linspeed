@@ -72,10 +72,10 @@ void MainWindow::testProgressed(const QString &testName,
 		msg = msg.arg("Upload");
 	}
 
-	/*if(testName=="download")
+	if(testName=="download")
 		this->download->setValue(currentSpeed);
 	else if(testName=="upload")
-		this->upload->setValue(currentSpeed);*/
+		this->upload->setValue(currentSpeed);
 	this->statusBar()->showMessage(msg);
 }
 
@@ -83,5 +83,6 @@ void MainWindow::testProgressed(const QString &testName,
 void MainWindow::testStarted()
 {
 	this->statusBar()->showMessage("Status: Test in progress");
+	this->download->setEmpty();
 	startButton->setText("Cancel");
 }
