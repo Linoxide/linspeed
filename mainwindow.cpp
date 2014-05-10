@@ -7,6 +7,7 @@
 #include <QSizePolicy>
 #include <QStatusBar>
 #include "mainwindow.h"
+#include "reportdialog.h"
 #include "results.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -138,6 +139,10 @@ void MainWindow::clearStatusMessage()
 	setStatusMessage("Ready");
 }
 
-void MainWindow::report() {}
+void MainWindow::report() {
+	ReportDialog *dialog = new ReportDialog(this);
+	dialog->show();
+}
+
 void MainWindow::about() {}
 
