@@ -6,8 +6,8 @@ int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
 	app.setOrganizationName("LinOxide");
-	app.setOrganizationDomain("linoxide.com");
-	app.setApplicationName("Speedtest");
+	app.setOrganizationDomain("LinOxide.com");
+	app.setApplicationName("Linspeed");
 
 	qRegisterMetaTypeStreamOperators<ResultsRecord>("ResultsRecord");
 
