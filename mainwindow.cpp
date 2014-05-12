@@ -13,6 +13,8 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
+	setWindowFlags(Qt::FramelessWindowHint);
+
 	download = new SpeedMeter("Download");
 	upload = new SpeedMeter("Upload");
 
