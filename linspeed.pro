@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = speedtest
+TARGET = linspeed
 DEPENDPATH += .
 INCLUDEPATH += .
 
