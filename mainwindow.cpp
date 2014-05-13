@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 	upload = new SpeedMeter("Upload");
 
 	startButton = new QPushButton("Begin Test");
+	startButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(download, 0, 0);
@@ -60,6 +61,29 @@ MainWindow::MainWindow(QWidget *parent)
 		this->download->setValue(resPair.first);
 		this->upload->setValue(resPair.second);
 	}
+
+	setStyleSheet(
+		"MainWindow QPushButton { "
+		"border-image: "
+		"url(:/themes/Lightblue_button.png) 4 4 4 4 stretch stretch;"
+		"margin: 5px; "
+		"}"
+		"MainWindow QPushButton:hover { "
+		"border-image: "
+		"url(:/themes/Lightblue_button_hover.png) 4 4 4 4 stretch stretch;"
+		"}"
+		"MainWindow QPushButton:pressed { "
+		"border-image: "
+		"url(:/themes/Lightblue_button_click.png) 4 4 4 4 stretch stretch;"
+		"}"
+		"MainWindow { "
+		"border-image: "
+		"url(:/themes/Lightblue_background.png); "
+		"}"
+		"QStatusBar { "
+		"margin: 5px; "
+		"}"
+		);
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)

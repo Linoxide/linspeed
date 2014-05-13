@@ -10,6 +10,7 @@ HEADERS = speedmeter.h mainwindow.h basetest.h webtest.h speedofmetest.h \
 	debugpage.h results.h reportdialog.h
 SOURCES = main.cpp speedmeter.cpp mainwindow.cpp webtest.cpp speedofmetest.cpp \
 	debugpage.cpp results.cpp reportdialog.cpp
+RESOURCES = themes/themes.qrc
 
 target.path =   $$PREFIX/bin
 target.files = $$TARGET

@@ -3,3 +3,4 @@ moc_*
 *.o
 Makefile
 linspeed
+qrc_*
