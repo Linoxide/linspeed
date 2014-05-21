@@ -19,12 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
 	upload = new SpeedMeter("Upload");
 
 	startButton = new QPushButton("Begin Test");
-	startButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(download, 0, 0);
 	layout->addWidget(upload, 0, 1);
-	layout->addWidget(startButton, 1, 0, 1, 2);
+	layout->addWidget(startButton, 1, 0, 1, 2/*, Qt::AlignCenter*/);
 
 	QWidget *central = new QWidget;
 	central->setLayout(layout);
@@ -62,28 +61,38 @@ MainWindow::MainWindow(QWidget *parent)
 		this->upload->setValue(resPair.second);
 	}
 
+	// theme Lightblue
+
+	setFixedSize(250, 165);
+
+	startButton->setStyleSheet(
+		"QPushButton { "
+		"border-image: "
+		"url(:/themes/Lightblue_button.png) 20; "
+		"border: 20 #729df5; "
+		"font: bold 15px; "
+		"}"
+		"QPushButton:hover { "
+		"border-image: "
+		"url(:/themes/Lightblue_button_hover.png) 20;"
+		"}"
+		"QPushButton:pressed { "
+		"border-image: "
+		"url(:/themes/Lightblue_button_click.png) 20;"
+		"}"
+	);
+
 	setStyleSheet(
-		"MainWindow QPushButton { "
-		"border-image: "
-		"url(:/themes/Lightblue_button.png) 4 4 4 4 stretch stretch;"
-		"margin: 5px; "
-		"}"
-		"MainWindow QPushButton:hover { "
-		"border-image: "
-		"url(:/themes/Lightblue_button_hover.png) 4 4 4 4 stretch stretch;"
-		"}"
-		"MainWindow QPushButton:pressed { "
-		"border-image: "
-		"url(:/themes/Lightblue_button_click.png) 4 4 4 4 stretch stretch;"
-		"}"
 		"MainWindow { "
 		"border-image: "
-		"url(:/themes/Lightblue_background.png); "
+		"url(:/themes/Lightblue_background.png) 40; "
+		"border: 40px; "
+		"padding: 30px; "
 		"}"
 		"QStatusBar { "
 		"margin: 5px; "
 		"}"
-		);
+	);
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
