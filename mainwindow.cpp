@@ -11,10 +11,8 @@
 #include "results.h"
 
 MainWindow::MainWindow(QWidget *parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent), showFrame(true)
 {
-	setWindowFlags(Qt::FramelessWindowHint);
-
 	download = new SpeedMeter("Download");
 	upload = new SpeedMeter("Upload");
 
@@ -94,7 +92,8 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	QMenu* themes = context.addMenu("&Theme");
 	QAction *showFrame = context.addAction("Show window &frame");
 	showFrame->setCheckable(true);
-	connect(showFrame, SIGNAL(toggled(bool)), this, SLOT(toggledShowFrame(bool)));
+	showFrame->setChecked(showFrame);
+	connect(showFrame, SIGNAL(toggled(bool)), this, SLOT(toggleShowFrame(bool)));
 	context.addSeparator();
 
 	context.addAction("&Report", this, SLOT(report()));
@@ -164,9 +163,14 @@ void MainWindow::clearStatusMessage()
 	setStatusMessage("Ready");
 }
 
-void MainWindow::toggledShowFrame(bool state)
+void MainWindow::toggleShowFrame(bool state)
 {
-
+	showFrame = state;
+	if(showFrame) {
+		setWindowFlags(0);
+	} else {
+		setWindowFlags(Qt::FramelessWindowHint);
+	}
 }
 
 void MainWindow::report() {

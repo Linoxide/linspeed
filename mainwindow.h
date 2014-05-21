@@ -27,7 +27,7 @@ private slots:
 	void setStatusMessage(const QString &str);
 	void clearStatusMessage();
 
-	void toggledShowFrame(bool state);
+	void toggleShowFrame(bool state);
 
 	void report();
 	void about();
@@ -39,6 +39,8 @@ private:
 	QLabel *statusMessage;
 
 	SpeedOfMeTest test;
+
+	bool showFrame;
 };
 
 #endif
