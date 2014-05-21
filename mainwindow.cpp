@@ -91,6 +91,11 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu context(this);
+	QMenu* themes = context.addMenu("&Theme");
+	QAction *showFrame = context.addAction("Show window &frame");
+	showFrame->setCheckable(true);
+	connect(showFrame, SIGNAL(toggled(bool)), this, SLOT(toggledShowFrame(bool)));
+	context.addSeparator();
 
 	context.addAction("&Report", this, SLOT(report()));
 	context.addSeparator();
@@ -157,6 +162,11 @@ void MainWindow::setStatusMessage(const QString &str)
 void MainWindow::clearStatusMessage()
 {
 	setStatusMessage("Ready");
+}
+
+void MainWindow::toggledShowFrame(bool state)
+{
+
 }
 
 void MainWindow::report() {

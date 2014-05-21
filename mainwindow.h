@@ -27,6 +27,8 @@ private slots:
 	void setStatusMessage(const QString &str);
 	void clearStatusMessage();
 
+	void toggledShowFrame(bool state);
+
 	void report();
 	void about();
 
