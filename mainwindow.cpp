@@ -92,21 +92,12 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu context(this);
 
-	QAction *reportAct = new QAction("&Report", this);
-	connect(reportAct, SIGNAL(triggered()), this, SLOT(report()));
-	context.addAction(reportAct);
+	context.addAction("&Report", this, SLOT(report()));
+	context.addSeparator();
 
-	QAction *aboutAct = new QAction("&About", this);
-	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
-	context.addAction(aboutAct);
-
-	QAction *aboutQtAct = new QAction("About &Qt", this);
-	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-	context.addAction(aboutQtAct);
-
-	QAction *closeAct = new QAction("&Close", this);
-	connect(closeAct, SIGNAL(triggered()), this, SLOT(close()));
-	context.addAction(closeAct);
+	context.addAction("&About", this, SLOT(about()));
+	context.addAction("About &Qt", qApp, SLOT(aboutQt()));
+	context.addAction("&Close", this, SLOT(close()));
 
 	context.exec(event->globalPos());
 }
