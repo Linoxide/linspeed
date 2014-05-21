@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(download, 0, 0);
 	layout->addWidget(upload, 0, 1);
-	layout->addWidget(startButton, 1, 0, 1, 1/*, Qt::AlignCenter*/);
+	layout->addWidget(startButton, 1, 0, 1, 2, Qt::AlignCenter);
 	layout->addWidget(statusMessage, 2, 0, 1, 2);
 
 	QWidget *central = new QWidget;
@@ -80,14 +80,11 @@ MainWindow::MainWindow(QWidget *parent)
 	);
 
 	setStyleSheet(
-		"MainWindow { "
+		"QMainWindow { "
 		"border-image: "
 		"url(:/themes/Lightblue_background.png) 40; "
 		"border: 40px; "
-		"padding: 30px; "
-		"}"
-		"QStatusBar { "
-		"margin: 5px; "
+		"padding: 40px; "
 		"}"
 	);
 }
