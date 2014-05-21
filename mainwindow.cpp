@@ -90,10 +90,10 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu context(this);
 	QMenu* themes = context.addMenu("&Theme");
-	QAction *showFrame = context.addAction("Show window &frame");
-	showFrame->setCheckable(true);
-	showFrame->setChecked(showFrame);
-	connect(showFrame, SIGNAL(toggled(bool)), this, SLOT(toggleShowFrame(bool)));
+	QAction *showFrameAction = context.addAction("Show window &frame");
+	showFrameAction->setCheckable(true);
+	showFrameAction->setChecked(showFrame);
+	connect(showFrameAction, SIGNAL(toggled(bool)), this, SLOT(toggleShowFrame(bool)));
 	context.addSeparator();
 
 	context.addAction("&Report", this, SLOT(report()));
@@ -171,6 +171,7 @@ void MainWindow::toggleShowFrame(bool state)
 	} else {
 		setWindowFlags(Qt::FramelessWindowHint);
 	}
+	show();
 }
 
 void MainWindow::report() {
