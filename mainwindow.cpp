@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
 	clearStatusMessage();
 
 	QGridLayout *layout = new QGridLayout;
-	layout->addWidget(download, 0, 0);
-	layout->addWidget(upload, 0, 1);
+	layout->addWidget(download, 0, 0, Qt::AlignCenter);
+	layout->addWidget(upload, 0, 1, Qt::AlignCenter);
 	layout->addWidget(startButton, 1, 0, 1, 2, Qt::AlignCenter);
 	layout->addWidget(statusMessage, 2, 0, 1, 2);
 
@@ -60,22 +60,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 	// theme Lightblue
 
-	setFixedSize(250, 165);
-
 	startButton->setStyleSheet(
-		"QPushButton { "
-		"border-image: "
-		"url(:/themes/Lightblue_button.png) 20; "
-		"border: 20 #729df5; "
+		"MainWindow QPushButton { "
+		"background-color: rgba(255, 255, 0, 0.6); "
+		//"border-image: "
+		//"url(:/themes/Lightblue_button.png) 20; "
+		//"border: 20 #729df5; "
 		"font: bold 15px; "
 		"}"
 		"QPushButton:hover { "
-		"border-image: "
-		"url(:/themes/Lightblue_button_hover.png) 20;"
+		//"border-image: "
+		//"url(:/themes/Lightblue_button_hover.png) 20;"
 		"}"
 		"QPushButton:pressed { "
-		"border-image: "
-		"url(:/themes/Lightblue_button_click.png) 20;"
+		//"border-image: "
+		//"url(:/themes/Lightblue_button_click.png) 20;"
 		"}"
 	);
 
