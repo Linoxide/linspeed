@@ -20,22 +20,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 	startButton = new QPushButton("Begin Test");
 
+	statusMessage = new QLabel;
+	clearStatusMessage();
+
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(download, 0, 0);
 	layout->addWidget(upload, 0, 1);
-	layout->addWidget(startButton, 1, 0, 1, 2/*, Qt::AlignCenter*/);
+	layout->addWidget(startButton, 1, 0, 1, 1/*, Qt::AlignCenter*/);
+	layout->addWidget(statusMessage, 2, 0, 1, 2);
 
 	QWidget *central = new QWidget;
 	central->setLayout(layout);
 
 	this->setCentralWidget(central);
-
-	QStatusBar *sbar = new QStatusBar;
-	this->setStatusBar(sbar);
-	statusMessage = new QLabel;
-	sbar->addWidget(statusMessage, 1);
-	sbar->setSizeGripEnabled(false);
-	clearStatusMessage();
 
 	setFixedSize(sizeHint());
 
