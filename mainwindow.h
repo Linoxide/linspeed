@@ -30,6 +30,9 @@ private slots:
 	void toggleShowFrame(bool state);
 
 	void switchTheme(QAction *action);
+	void rearrangeLarge();
+	void rearrangeSmall();
+	void loadTheme(const QString& text);
 
 	void report();
 	void about();

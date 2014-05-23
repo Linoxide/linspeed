@@ -185,6 +185,32 @@ void MainWindow::clearStatusMessage()
 void MainWindow::switchTheme(QAction *action)
 {
     currentTheme = action->text();
+
+    QList<Theme> themeList = Theme::listThemes();
+    int index;
+    for(index=0; index<themeList.size(); ++index) {
+        if(themeList[index].name == currentTheme)
+            break;
+    }
+
+    Theme& themeObj = themeList[index];
+    if(themeObj.size == Theme::Large) {
+        rearrangeLarge();
+    } else {
+        rearrangeSmall();
+    }
+
+    loadTheme(themeObj.filenamePrefix);
+}
+
+void MainWindow::rearrangeLarge()
+{
+}
+void MainWindow::rearrangeSmall()
+{
+}
+void MainWindow::loadTheme(const QString& text)
+{
 }
 
 void MainWindow::toggleShowFrame(bool state)
