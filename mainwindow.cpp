@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QAction>
+#include <QActionGroup>
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <QGridLayout>
@@ -9,6 +10,7 @@
 #include "mainwindow.h"
 #include "reportdialog.h"
 #include "results.h"
+#include "theme.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), showFrame(true)
@@ -89,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu context(this);
-	QMenu* themes = context.addMenu("&Theme");
+	QMenu *themes = context.addMenu("&Themes");
 	QAction *showFrameAction = context.addAction("Show window &frame");
 	showFrameAction->setCheckable(true);
 	showFrameAction->setChecked(showFrame);
@@ -102,6 +104,23 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	context.addAction("&About", this, SLOT(about()));
 	context.addAction("About &Qt", qApp, SLOT(aboutQt()));
 	context.addAction("&Close", this, SLOT(close()));
+
+	// themes
+	QActionGroup *themesGroup = new QActionGroup(this);
+    connect(themesGroup, SIGNAL(triggered(QAction*)),
+        this, SLOT(switchTheme(QAction*)));
+
+    QList<Theme> themesList = Theme::listThemes();
+    for(int i=0; i<themesList.size(); ++i) {
+        Theme& cur = themesList[i];
+        QAction *action = themes->addAction(cur.name);
+        action->setActionGroup(themesGroup);
+        action->setCheckable(true);
+
+        if(currentTheme == cur.name) {
+            action->setChecked(true);
+        }
+    }
 
 	context.exec(event->globalPos());
 }
@@ -161,6 +180,11 @@ void MainWindow::setStatusMessage(const QString &str)
 void MainWindow::clearStatusMessage()
 {
 	setStatusMessage("Ready");
+}
+
+void MainWindow::switchTheme(QAction *action)
+{
+    currentTheme = action->text();
 }
 
 void MainWindow::toggleShowFrame(bool state)

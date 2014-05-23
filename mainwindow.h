@@ -29,6 +29,8 @@ private slots:
 
 	void toggleShowFrame(bool state);
 
+	void switchTheme(QAction *action);
+
 	void report();
 	void about();
 
@@ -41,6 +43,7 @@ private:
 	SpeedOfMeTest test;
 
 	bool showFrame;
+    QString currentTheme;
 };
 
 #endif
