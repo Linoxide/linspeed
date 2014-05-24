@@ -15,8 +15,8 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), showFrame(true)
 {
-	download = new SpeedMeter(0, "%1 M");
-	upload = new SpeedMeter(0, "%1 M");
+	download = new SpeedMeter(0, "%1");
+	upload = new SpeedMeter(0, "%1");
 
 	startButton = new QPushButton("Begin Test");
 
@@ -33,8 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
 	central->setLayout(layout);
 
 	this->setCentralWidget(central);
-
-	setFixedSize(sizeHint());
 
 	connect(startButton, SIGNAL(clicked()),
 		&this->test, SLOT(start()));
@@ -57,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
 		this->download->setValue(resPair.first);
 		this->upload->setValue(resPair.second);
 	}
+
+	rearrangeLarge();
 
 	// theme Lightblue
 
@@ -107,20 +107,20 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 	// themes
 	QActionGroup *themesGroup = new QActionGroup(this);
-    connect(themesGroup, SIGNAL(triggered(QAction*)),
-        this, SLOT(switchTheme(QAction*)));
+	connect(themesGroup, SIGNAL(triggered(QAction*)),
+		this, SLOT(switchTheme(QAction*)));
 
-    QList<Theme> themesList = Theme::listThemes();
-    for(int i=0; i<themesList.size(); ++i) {
-        Theme& cur = themesList[i];
-        QAction *action = themes->addAction(cur.name);
-        action->setActionGroup(themesGroup);
-        action->setCheckable(true);
+	QList<Theme> themesList = Theme::listThemes();
+	for(int i=0; i<themesList.size(); ++i) {
+		Theme& cur = themesList[i];
+		QAction *action = themes->addAction(cur.name);
+		action->setActionGroup(themesGroup);
+		action->setCheckable(true);
 
-        if(currentTheme == cur.name) {
-            action->setChecked(true);
-        }
-    }
+		if(currentTheme == cur.name) {
+			action->setChecked(true);
+		}
+	}
 
 	context.exec(event->globalPos());
 }
@@ -184,31 +184,41 @@ void MainWindow::clearStatusMessage()
 
 void MainWindow::switchTheme(QAction *action)
 {
-    currentTheme = action->text();
+	currentTheme = action->text();
 
-    QList<Theme> themeList = Theme::listThemes();
-    int index;
-    for(index=0; index<themeList.size(); ++index) {
-        if(themeList[index].name == currentTheme)
-            break;
-    }
+	QList<Theme> themeList = Theme::listThemes();
+	int index;
+	for(index=0; index<themeList.size(); ++index) {
+		if(themeList[index].name == currentTheme)
+			break;
+	}
 
-    Theme& themeObj = themeList[index];
-    if(themeObj.size == Theme::Large) {
-        rearrangeLarge();
-    } else {
-        rearrangeSmall();
-    }
+	Theme& themeObj = themeList[index];
+	if(themeObj.size == Theme::Large) {
+		rearrangeLarge();
+	} else {
+		rearrangeSmall();
+	}
 
-    loadTheme(themeObj.filenamePrefix);
+	loadTheme(themeObj.filenamePrefix);
 }
 
 void MainWindow::rearrangeLarge()
 {
+	download->setFormat("%1 Mbps");
+	upload->setFormat("%1 Mbps");
+
+	setFixedSize(sizeHint());
 }
+
 void MainWindow::rearrangeSmall()
 {
+	download->setFormat("↓ %1 M");
+	upload->setFormat("↑ %1 M");
+
+	setFixedSize(sizeHint());
 }
+
 void MainWindow::loadTheme(const QString& text)
 {
 }

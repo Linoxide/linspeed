@@ -13,8 +13,9 @@ void SpeedMeter::setEmpty()
     setValue(0);
 }
 
-void SpeedMeter::setValue(double num)
+void SpeedMeter::setValue(double _num)
 {
+    num = _num;
     QString formattedNum = QString::number(num);
     if(num==0)
         formattedNum = "—";
@@ -23,9 +24,10 @@ void SpeedMeter::setValue(double num)
 
 void SpeedMeter::setLabelSize(double longestValue)
 {
+    double prev = num;
     setValue(longestValue);
 	setFixedSize(sizeHint());
-    setValue(num);
+    setValue(prev);
 }
 
 void SpeedMeter::setFormat(const QString& _format)
