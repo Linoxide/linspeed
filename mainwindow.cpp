@@ -15,6 +15,9 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), showFrame(true)
 {
+	downloadLabel = new QLabel("Download");
+	uploadLabel = new QLabel("Upload");
+
 	download = new SpeedMeter(0, "%1");
 	upload = new SpeedMeter(0, "%1");
 
@@ -24,10 +27,12 @@ MainWindow::MainWindow(QWidget *parent)
 	clearStatusMessage();
 
 	QGridLayout *layout = new QGridLayout;
-	layout->addWidget(download, 0, 0);
-	layout->addWidget(upload, 0, 1);
-	layout->addWidget(startButton, 1, 0, 1, 2, Qt::AlignCenter);
-	layout->addWidget(statusMessage, 2, 0, 1, 2);
+	layout->addWidget(downloadLabel, 0, 0, Qt::AlignCenter);
+	layout->addWidget(uploadLabel, 0, 1, Qt::AlignCenter);
+	layout->addWidget(download, 1, 0);
+	layout->addWidget(upload, 1, 1);
+	layout->addWidget(startButton, 2, 0, 1, 2, Qt::AlignCenter);
+	layout->addWidget(statusMessage, 3, 0, 1, 2);
 
 	QWidget *central = new QWidget;
 	central->setLayout(layout);
@@ -57,35 +62,6 @@ MainWindow::MainWindow(QWidget *parent)
 	}
 
 	rearrangeLarge();
-
-	// theme Lightblue
-
-	startButton->setStyleSheet(
-		"MainWindow QPushButton { "
-		"background-color: rgba(255, 255, 0, 0.6); "
-		//"border-image: "
-		//"url(:/themes/Lightblue_button.png) 20; "
-		//"border: 20 #729df5; "
-		"font: bold 15px; "
-		"}"
-		"QPushButton:hover { "
-		//"border-image: "
-		//"url(:/themes/Lightblue_button_hover.png) 20;"
-		"}"
-		"QPushButton:pressed { "
-		//"border-image: "
-		//"url(:/themes/Lightblue_button_click.png) 20;"
-		"}"
-	);
-
-	setStyleSheet(
-		"QMainWindow { "
-		"border-image: "
-		"url(:/themes/Lightblue_background.png) 40; "
-		"border: 40px; "
-		"padding: 40px; "
-		"}"
-	);
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
@@ -208,6 +184,9 @@ void MainWindow::rearrangeLarge()
 	download->setFormat("%1 Mbps");
 	upload->setFormat("%1 Mbps");
 
+	downloadLabel->show();
+	uploadLabel->show();
+
 	setFixedSize(sizeHint());
 }
 
@@ -216,11 +195,53 @@ void MainWindow::rearrangeSmall()
 	download->setFormat("↓ %1 M");
 	upload->setFormat("↑ %1 M");
 
+	downloadLabel->hide();
+	uploadLabel->hide();
+
 	setFixedSize(sizeHint());
 }
 
 void MainWindow::loadTheme(const QString& text)
 {
+	QString styleButton, styleBackground;
+
+	if(text.startsWith("native")) {
+		styleButton = "";
+		styleBackground = "";
+	} else {
+		QString pref = text+"_", suf = "";
+		QString fnBackground = pref + "background" + suf,
+			fnBtn = pref + "button" + suf,
+			fnClick = pref + "button_click" + suf,
+			fnHover = pref + "button_hover" + suf;
+
+		styleButton = QString(
+			"QPushButton { "
+            "background-image: "
+			"url(:/themes/%1.png); "
+			"border: 0; "
+			"}\n"
+			"QPushButton:hover { "
+            "background-image: "
+			"url(:/themes/%2.png); "
+			"}\n"
+			"QPushButton:pressed { "
+            "background-image: "
+			"url(:/themes/%3.png); "
+			"}\n").arg(fnBtn, fnClick, fnHover);
+
+		styleBackground = QString(
+			"MainWindow { "
+			"background-image: "
+			"url(:/themes/%1.png); "
+			"}").arg(fnBackground);
+	}
+
+	qDebug() << styleButton;
+	qDebug() << styleBackground;
+
+	startButton->setStyleSheet(styleButton);
+	setStyleSheet(styleBackground);
 }
 
 void MainWindow::toggleShowFrame(bool state)

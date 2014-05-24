@@ -38,6 +38,8 @@ private slots:
 	void about();
 
 private:
+	QLabel *downloadLabel;
+	QLabel *uploadLabel;
 	SpeedMeter *download;
 	SpeedMeter *upload;
 	QPushButton *startButton;
