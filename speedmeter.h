@@ -5,20 +5,25 @@
 #include <QString>
 #include <QLabel>
 
-class SpeedMeter : public QWidget {
+class SpeedMeter : public QLabel {
 	Q_OBJECT
 
 public:
-	SpeedMeter(const QString& text, QWidget *parent = 0);
+	SpeedMeter(double _num, const QString& _format, QWidget *parent = 0);
 
 public slots:
 	void setValue(double num);
 	void setEmpty();
+    void setFormat(const QString &_format);
 
-private:
-	QLabel *value;
+protected:
+    double num;
+    QString format;
 
-	void setLabelSize(const QString &longestText, QLabel *label);
+    static const double longestNum = 124.23;
+
+	void setLabelSize(double longestValue);
+
 
 };
 

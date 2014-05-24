@@ -15,8 +15,8 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), showFrame(true)
 {
-	download = new SpeedMeter("Download");
-	upload = new SpeedMeter("Upload");
+	download = new SpeedMeter(0, "%1 M");
+	upload = new SpeedMeter(0, "%1 M");
 
 	startButton = new QPushButton("Begin Test");
 
@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
 	clearStatusMessage();
 
 	QGridLayout *layout = new QGridLayout;
-	layout->addWidget(download, 0, 0, Qt::AlignCenter);
-	layout->addWidget(upload, 0, 1, Qt::AlignCenter);
+	layout->addWidget(download, 0, 0);
+	layout->addWidget(upload, 0, 1);
 	layout->addWidget(startButton, 1, 0, 1, 2, Qt::AlignCenter);
 	layout->addWidget(statusMessage, 2, 0, 1, 2);
 

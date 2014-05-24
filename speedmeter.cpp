@@ -1,38 +1,36 @@
-#include <QVBoxLayout>
 #include "speedmeter.h"
 
-SpeedMeter::SpeedMeter(const QString& text, QWidget *parent) 
-	: QWidget(parent)
+SpeedMeter::SpeedMeter(double _num, const QString &_format, QWidget *parent) 
+	: QLabel(parent), format(_format) 
 {
-	QLabel *label = new QLabel(text);
-	label->setAlignment(Qt::AlignCenter);
-
-	value = new QLabel;
-	setEmpty();
-	setLabelSize("124.23 Mbps", value);
-	value->setAlignment(Qt::AlignCenter);
-
-	QVBoxLayout *layout = new QVBoxLayout;
-	this->setLayout(layout);
-
-	layout->addWidget(label);
-	layout->addWidget(value);
+    setValue(_num);
+	setLabelSize(longestNum);
+    setAlignment(Qt::AlignCenter);
 }
 
 void SpeedMeter::setEmpty()
 {
-	this->value->setText("--- Mbps");
+    setValue(0);
 }
 
 void SpeedMeter::setValue(double num)
 {
-	this->value->setText(QString("%1 Mbps").arg(num));
+    QString formattedNum = QString::number(num);
+    if(num==0)
+        formattedNum = "—";
+	setText(QString(format).arg(formattedNum));
 }
 
-void SpeedMeter::setLabelSize(const QString &longestText, QLabel *label)
+void SpeedMeter::setLabelSize(double longestValue)
 {
-	QString tcopy = label->text();
-	label->setText(longestText);
-	label->setFixedSize(label->sizeHint());
-	label->setText(tcopy);
+    setValue(longestValue);
+	setFixedSize(sizeHint());
+    setValue(num);
+}
+
+void SpeedMeter::setFormat(const QString& _format)
+{
+    format = _format;
+    setValue(num);
+    setLabelSize(longestNum);
 }
