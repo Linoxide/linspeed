@@ -101,7 +101,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	context.exec(event->globalPos());
 }
 
-
 void MainWindow::testSucceeded(double downloadSpeed,
 	double uploadSpeed)
 {
@@ -195,6 +194,7 @@ void MainWindow::rearrangeLarge()
 	uploadLabel->show();
 
 	updateStatusMessage();
+	startButton->setFixedSize(202, 28);
 	setFixedSize(220, 120);
 }
 
@@ -208,6 +208,7 @@ void MainWindow::rearrangeSmall()
 	uploadLabel->hide();
 
 	updateStatusMessage();
+	startButton->setFixedSize(152, 28);
 	setFixedSize(170, 90);
 }
 
