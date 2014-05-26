@@ -200,8 +200,8 @@ void MainWindow::rearrangeLarge()
 
 void MainWindow::rearrangeSmall()
 {
-	download->setFormat("↓ %1 M");
-	upload->setFormat("↑ %1 M");
+	download->setFormat(QString::fromUtf8("↓ %1 M"));
+	upload->setFormat(QString::fromUtf8("↑ %1 M"));
 
 	statusFormat = "%1";
 	downloadLabel->hide();

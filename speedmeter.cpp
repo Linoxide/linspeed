@@ -18,7 +18,7 @@ void SpeedMeter::setValue(double _num)
 	num = _num;
 	QString formattedNum = QString::number(num);
 	if(num==0)
-		formattedNum = "—";
+		formattedNum = QString::fromUtf8("—");
 	setText(QString(format).arg(formattedNum));
 }
 
