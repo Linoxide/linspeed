@@ -8,5 +8,9 @@
 	<file>layoutsmall_button.png</file>
 	<file>layoutsmall_button_click.png</file>
 	<file>layoutsmall_button_hover.png</file>
+	<file>stripedlarge_background.png</file>
+	<file>stripedlarge_button.png</file>
+	<file>stripedlarge_button_click.png</file>
+	<file>stripedlarge_button_hover.png</file>
 </qresource>
 </RCC>

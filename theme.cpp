@@ -13,6 +13,7 @@ QList<Theme> Theme::listThemes()
 	list.append(Theme("Native Small", Small, "nativesmall"));
 	list.append(Theme("Layout Large", Large, "layoutlarge"));
 	list.append(Theme("Layout Small", Small, "layoutsmall"));
+	list.append(Theme("Striped Large", Large, "stripedlarge"));
 
 	return list;
 }
