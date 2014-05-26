@@ -150,12 +150,18 @@ void MainWindow::testStarted()
 
 void MainWindow::setStatusMessage(const QString &str) 
 {
-	statusMessage->setText(QString("Status: %1").arg(str));
+	statusMessageString = str;
+	statusMessage->setText(statusFormat.arg(str));
 }
 
 void MainWindow::clearStatusMessage()
 {
 	setStatusMessage("Ready");
+}
+
+void MainWindow::updateStatusMessage()
+{
+	setStatusMessage(statusMessageString);
 }
 
 void MainWindow::switchTheme(QAction *action)
@@ -184,9 +190,11 @@ void MainWindow::rearrangeLarge()
 	download->setFormat("%1 Mbps");
 	upload->setFormat("%1 Mbps");
 
+	statusFormat = "Status: %1";
 	downloadLabel->show();
 	uploadLabel->show();
 
+	updateStatusMessage();
 	setFixedSize(sizeHint());
 }
 
@@ -195,9 +203,11 @@ void MainWindow::rearrangeSmall()
 	download->setFormat("↓ %1 M");
 	upload->setFormat("↑ %1 M");
 
+	statusFormat = "%1";
 	downloadLabel->hide();
 	uploadLabel->hide();
 
+	updateStatusMessage();
 	setFixedSize(sizeHint());
 }
 
