@@ -4,7 +4,7 @@ SpeedMeter::SpeedMeter(double _num, const QString &_format, QWidget *parent)
 	: QLabel(parent), format(_format) 
 {
 	setValue(_num);
-	setLabelSize(longestNum);
+	//setLabelSize(longestNum);
 	setAlignment(Qt::AlignCenter);
 }
 
@@ -34,5 +34,5 @@ void SpeedMeter::setFormat(const QString& _format)
 {
 	format = _format;
 	setValue(num);
-	setLabelSize(longestNum);
+	//setLabelSize(longestNum);
 }

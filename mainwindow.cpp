@@ -24,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
 	startButton = new QPushButton("Begin Test");
 
 	statusMessage = new QLabel;
-	clearStatusMessage();
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(downloadLabel, 0, 0, Qt::AlignCenter);
@@ -62,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
 	}
 
 	rearrangeLarge();
+	clearStatusMessage();
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
@@ -195,7 +195,7 @@ void MainWindow::rearrangeLarge()
 	uploadLabel->show();
 
 	updateStatusMessage();
-	setFixedSize(sizeHint());
+	setFixedSize(220, 120);
 }
 
 void MainWindow::rearrangeSmall()
@@ -208,7 +208,7 @@ void MainWindow::rearrangeSmall()
 	uploadLabel->hide();
 
 	updateStatusMessage();
-	setFixedSize(sizeHint());
+	setFixedSize(170, 90);
 }
 
 void MainWindow::loadTheme(const QString& text)
@@ -230,6 +230,7 @@ void MainWindow::loadTheme(const QString& text)
 			"background-image: "
 			"url(:/themes/%1.png); "
 			"border: 0; "
+			"padding: 5px; "
 			"}\n"
 			"QPushButton:hover { "
 			"background-image: "
@@ -246,9 +247,6 @@ void MainWindow::loadTheme(const QString& text)
 			"url(:/themes/%1.png); "
 			"}").arg(fnBackground);
 	}
-
-	qDebug() << styleButton;
-	qDebug() << styleBackground;
 
 	startButton->setStyleSheet(styleButton);
 	setStyleSheet(styleBackground);
