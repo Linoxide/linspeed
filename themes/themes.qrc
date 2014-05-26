@@ -4,5 +4,9 @@
 	<file>layoutlarge_button.png</file>
 	<file>layoutlarge_button_click.png</file>
 	<file>layoutlarge_button_hover.png</file>
+	<file>layoutsmall_background.png</file>
+	<file>layoutsmall_button.png</file>
+	<file>layoutsmall_button_click.png</file>
+	<file>layoutsmall_button_hover.png</file>
 </qresource>
 </RCC>

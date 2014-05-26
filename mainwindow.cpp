@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 	layout->addWidget(uploadLabel, 0, 1, Qt::AlignCenter);
 	layout->addWidget(download, 1, 0);
 	layout->addWidget(upload, 1, 1);
-	layout->addWidget(startButton, 2, 0, 1, 2, Qt::AlignCenter);
+	layout->addWidget(startButton, 2, 0, 1, 2);
 	layout->addWidget(statusMessage, 3, 0, 1, 2);
 
 	QWidget *central = new QWidget;
