@@ -50,7 +50,7 @@ private:
 
 	QString statusMessageString;
 	bool showFrame;
-    QString currentTheme;
+	QString currentTheme;
 	QString statusFormat;
 };
 

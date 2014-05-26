@@ -4,7 +4,7 @@
 #include <QString>
 
 class Results : public QObject {
-    Q_OBJECT
+	Q_OBJECT
 
 private:
 	QSettings settings;
@@ -20,9 +20,9 @@ public:
 };
 
 struct ResultsRecord {
-    QDateTime time;
-    double download;
-    double upload;
+	QDateTime time;
+	double download;
+	double upload;
 
 	QString toString() const;
 };

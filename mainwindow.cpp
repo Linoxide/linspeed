@@ -227,16 +227,16 @@ void MainWindow::loadTheme(const QString& text)
 
 		styleButton = QString(
 			"QPushButton { "
-            "background-image: "
+			"background-image: "
 			"url(:/themes/%1.png); "
 			"border: 0; "
 			"}\n"
 			"QPushButton:hover { "
-            "background-image: "
+			"background-image: "
 			"url(:/themes/%2.png); "
 			"}\n"
 			"QPushButton:pressed { "
-            "background-image: "
+			"background-image: "
 			"url(:/themes/%3.png); "
 			"}\n").arg(fnBtn, fnClick, fnHover);
 

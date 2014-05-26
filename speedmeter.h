@@ -14,13 +14,13 @@ public:
 public slots:
 	void setValue(double num);
 	void setEmpty();
-    void setFormat(const QString &_format);
+	void setFormat(const QString &_format);
 
 protected:
-    double num;
-    QString format;
+	double num;
+	QString format;
 
-    static const double longestNum = 124.23;
+	static const double longestNum = 124.23;
 
 	void setLabelSize(double longestValue);
 
