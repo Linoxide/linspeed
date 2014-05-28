@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QGridLayout>
 #include <QMenu>
+#include <QSettings>
 #include <QSizePolicy>
 #include <QStatusBar>
 #include "mainwindow.h"
@@ -59,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent)
 		this->download->setValue(resPair.first);
 		this->upload->setValue(resPair.second);
 	}
+
+	QSettings settings;
+	restoreGeometry(settings.value("geometry").toByteArray());
 
 	rearrangeLarge();
 	clearStatusMessage();
@@ -271,3 +275,8 @@ void MainWindow::report() {
 
 void MainWindow::about() {}
 
+void MainWindow::closeEvent(QCloseEvent */*event*/)
+{
+	QSettings settings;
+	settings.setValue("geometry", saveGeometry());
+}

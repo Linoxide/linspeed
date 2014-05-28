@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QCloseEvent>
 #include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>
@@ -37,6 +38,8 @@ private slots:
 
 	void report();
 	void about();
+
+	void closeEvent(QCloseEvent *event);
 
 private:
 	QLabel *downloadLabel;
