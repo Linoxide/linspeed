@@ -63,8 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	QSettings settings;
 	restoreGeometry(settings.value("geometry").toByteArray());
-
-	rearrangeLarge();
+	loadTheme(settings.value("theme").toString());
 	clearStatusMessage();
 }
 
@@ -169,23 +168,7 @@ void MainWindow::updateStatusMessage()
 
 void MainWindow::switchTheme(QAction *action)
 {
-	currentTheme = action->text();
-
-	QList<Theme> themeList = Theme::listThemes();
-	int index;
-	for(index=0; index<themeList.size(); ++index) {
-		if(themeList[index].name == currentTheme)
-			break;
-	}
-
-	Theme& themeObj = themeList[index];
-	if(themeObj.size == Theme::Large) {
-		rearrangeLarge();
-	} else {
-		rearrangeSmall();
-	}
-
-	loadTheme(themeObj.filenamePrefix);
+	loadTheme(action->text());
 }
 
 void MainWindow::rearrangeLarge()
@@ -216,15 +199,15 @@ void MainWindow::rearrangeSmall()
 	setFixedSize(170, 90);
 }
 
-void MainWindow::loadTheme(const QString& text)
+void MainWindow::setStyles(const QString& filename) 
 {
 	QString styleButton, styleBackground;
 
-	if(text.startsWith("native")) {
+	if(filename.startsWith("native")) {
 		styleButton = "";
 		styleBackground = "";
 	} else {
-		QString pref = text+"_", suf = "";
+		QString pref = filename+"_", suf = "";
 		QString fnBackground = pref + "background" + suf,
 			fnBtn = pref + "button" + suf,
 			fnClick = pref + "button_click" + suf,
@@ -257,6 +240,31 @@ void MainWindow::loadTheme(const QString& text)
 	setStyleSheet(styleBackground);
 }
 
+void MainWindow::loadTheme(const QString& name)
+{
+	QList<Theme> themeList = Theme::listThemes();
+	int index;
+	for(index=0; index<themeList.size(); ++index) {
+		if(themeList[index].name == name)
+			break;
+	}
+
+	if(index == themeList.size()) {
+		index = 0;
+	}
+
+	Theme& themeObj = themeList[index];
+	currentTheme = themeList[index].name;
+
+	if(themeObj.size == Theme::Large) {
+		rearrangeLarge();
+	} else {
+		rearrangeSmall();
+	}
+
+	setStyles(themeObj.filenamePrefix);
+}
+
 void MainWindow::toggleShowFrame(bool state)
 {
 	showFrame = state;
@@ -279,4 +287,5 @@ void MainWindow::closeEvent(QCloseEvent */*event*/)
 {
 	QSettings settings;
 	settings.setValue("geometry", saveGeometry());
+	settings.setValue("theme", currentTheme);
 }
