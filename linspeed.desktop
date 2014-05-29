@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Linspeed
+Exec=linspeed
+Icon=/usr/share/icons/linspeed.svg
+Terminal=false
+Categories=Qt;Utility;
