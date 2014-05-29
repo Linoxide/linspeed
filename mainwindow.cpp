@@ -283,6 +283,16 @@ void MainWindow::report() {
 
 void MainWindow::about() {}
 
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+	clickPos = event->pos();
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+	move(event->globalPos() - clickPos);
+}
+
 void MainWindow::closeEvent(QCloseEvent */*event*/)
 {
 	QSettings settings;

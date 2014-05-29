@@ -40,6 +40,9 @@ private slots:
 	void report();
 	void about();
 
+	void mousePressEvent(QMouseEvent *event);
+	void mouseMoveEvent(QMouseEvent *event);
+
 	void closeEvent(QCloseEvent *event);
 
 private:
@@ -56,6 +59,8 @@ private:
 	bool showFrame;
 	QString currentTheme;
 	QString statusFormat;
+
+	QPoint clickPos;
 };
 
 #endif
