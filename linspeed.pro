@@ -12,6 +12,7 @@ SOURCES = main.cpp speedmeter.cpp mainwindow.cpp speedofmetest.cpp \
 	debugpage.cpp results.cpp reportdialog.cpp theme.cpp
 RESOURCES = themes/themes.qrc
 
+PREFIX = /usr
 target.path =   $$PREFIX/bin
 target.files = $$TARGET
 sources.files = qt.pro $$SOURCES $$HEADERS $$RESOURCES $$FORMS

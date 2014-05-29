@@ -16,6 +16,8 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), showFrame(true)
 {
+	setWindowTitle("Linspeed");
+
 	downloadLabel = new QLabel("Download");
 	uploadLabel = new QLabel("Upload");
 
