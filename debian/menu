@@ -1,0 +1,2 @@
+?package(linspeed):needs="X11" section="Applications/Network/Monitoring"\
+  title="Linspeed" command="/usr/bin/linspeed"

@@ -4,3 +4,7 @@ moc_*
 Makefile
 linspeed
 qrc_*
+debian/tmp
+debian/files
+debian/linspeed*
+debian/stamp*

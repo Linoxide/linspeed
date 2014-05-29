@@ -1,0 +1,15 @@
+Source: linspeed
+Section: utils/non-free
+Priority: extra
+Maintainer: Michał Łuszczyk <michal.luszczyk@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), libqt4-dev, cdbs
+Standards-Version: 3.9.2
+Homepage: http://linoxide.com/products/linspeed.html
+#Vcs-Git: git://git.debian.org/collab-maint/linspeed.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/linspeed.git;a=summary
+
+Package: linspeed
+Architecture: i386
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Desktop widget to measure your Internet script
+ Linspeed is a Qt application by LinOxide to measure Internet bandwidth.
