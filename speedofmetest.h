@@ -2,9 +2,10 @@
 #define SPEEDOFMETEST_H
 
 #include <QTimer>
-#include "webtest.h"
+#include <QWebPage>
+#include "basetest.h"
 
-class SpeedOfMeTest : public WebTest {
+class SpeedOfMeTest : public BaseTest {
 	Q_OBJECT
 
 public:
@@ -17,6 +18,7 @@ private slots:
 	void pageLoaded(bool);
 
 private:
+	QWebPage page;
 	QTimer *timer;
 	bool running;
 	int timesChecked;
