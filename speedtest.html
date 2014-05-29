@@ -10,7 +10,7 @@
     <h2>Speed test</h2>
 
     <button onclick="SomApi.startTest()">Start Test</button>
-    <div id="status"></div>
+    <div id="status">loaded</div>
 
 	<!-- success -->
 	<div id="download"></div>
@@ -33,7 +33,7 @@
 
         SomApi.account = ""; //your API Key here
         SomApi.domainName = getDomain(document.URL);     //your domain or sub-domain here
-        SomApi.onTestCompleted = resp_handler("success");
+        // SomApi.onTestCompleted = resp_handler("success"); // doesn't work on qtwebkit
         SomApi.onError = resp_handler("error");
         SomApi.onProgress = resp_handler("progress");
 
@@ -42,19 +42,28 @@
 		SomApi.config.testServerEnabled = false;
 		SomApi.config.userInfoEnabled = false;
 		SomApi.config.latencyTestEnabled = false;
-		SomApi.config.uploadTestEnabled = false;
+		SomApi.config.uploadTestEnabled = true;
 		SomApi.config.progress.enabled = true;
 		SomApi.config.progress.verbose = true;
 
+		function objToDom(data) {
+			for(prop in data) {
+				var node = document.getElementById(prop);
+				if(node==null) continue;
+				node.innerHTML = data[prop];
+			}
+		}
+
 		function resp_handler(status) {
 			return function(data) {
-				data["status"] = status;
-
-				for(prop in data) {
-					var node = document.getElementById(prop);
-					if(node==null) continue;
-					node.innerHTML = data[prop];
+				if(data["type"] == "upload" && data["percentDone"] == "100") {
+					data["status"] = "success";
+				} else {
+					data["status"] = status;
 				}
+
+				data[data["type"]] = data["currentSpeed"];
+				objToDom(data);
 			};
 		}
     </script>
