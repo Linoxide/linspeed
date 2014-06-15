@@ -17,17 +17,18 @@ private slots:
 	void checkPage();
 	void pageLoaded(bool);
 	void failUnlessLoaded();
+	void tryStartTest();
 
 private:
 	QWebPage page;
 	QTimer *timer;
 	bool running;
 	int timesChecked;
+	bool webTestInQueue;
 	bool webTestStarted;
 	bool loaded;
 
 	QString parseField(const QString &name) const;
-	void tryStartTest();
 	void tryGetResults();
 	void parseProgress();
 	void parseError();

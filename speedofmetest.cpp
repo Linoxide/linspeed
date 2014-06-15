@@ -3,9 +3,10 @@
 #include <QWebFrame>
 #include "speedofmetest.h"
 
-const int CHECK_INTERVAL = 1000;
-const int MAX_NUM_CHECK = 60;
-const int WAIT_FOR_LOAD = 5000;
+const int CHECK_INTERVAL = 100;
+const int MAX_NUM_CHECK = 1200;
+const int WAIT_FOR_LOAD = 10000;
+const int WAIT_BEFORE_RUNNING = 2000;
 
 const QString TEST_URL = "http://ii-lo.tarnow.pl/~michal/speedtest.html";
 
@@ -85,9 +86,12 @@ void SpeedOfMeTest::checkPage()
 	if(!running) return;
 
 	if(loaded) {
-		if(!webTestStarted) {
-			tryStartTest();
-		} else {
+		if(!webTestInQueue) {
+			QTimer::singleShot(WAIT_BEFORE_RUNNING, 
+				this, SLOT(tryStartTest()));
+			webTestInQueue = true;
+		}
+		if(webTestStarted) {
 			tryGetResults();
 		}
 	}
@@ -114,6 +118,7 @@ void SpeedOfMeTest::start()
 		loaded = false;
 		timesChecked = 0;
 		webTestStarted = false;
+		webTestInQueue = false;
 		emit started();
 	} else {
 		running = false;
