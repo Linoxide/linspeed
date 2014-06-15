@@ -11,7 +11,7 @@ const char ABOUT_TEXT[] =
 "Developed by &lt;insert dev's name&gt;.<br>"
 "Graphics by &lt;insert designer's name&gt;.<br>"
 "<br>"
-"This application is based on <a href=\"speedof.me\">SpeedOf.Me API</a>.";
+"This application is based on <a href=\"http://speedof.me\">SpeedOf.Me API</a>.";
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
