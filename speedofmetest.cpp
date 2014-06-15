@@ -69,7 +69,7 @@ void SpeedOfMeTest::parseSuccess()
 void SpeedOfMeTest::parseError()
 {
 	running = false;
-	emit failed(parseField("error"));
+	emit failed("Internal error");
 }
 
 void SpeedOfMeTest::tryStartTest()
@@ -102,7 +102,7 @@ void SpeedOfMeTest::checkPage()
 	} else {
 		if(running) {
 			running = false;
-			emit failed("timeout");
+			emit failed("Timeout");
 		}
 		page.currentFrame()->load(QUrl(""));
 	}
@@ -123,7 +123,7 @@ void SpeedOfMeTest::start()
 	} else {
 		running = false;
 		page.currentFrame()->setUrl(QUrl(""));
-		emit failed("cancelled");
+		emit failed("Cancelled");
 	}
 }
 
@@ -134,7 +134,7 @@ void SpeedOfMeTest::pageLoaded(bool)
 	QWebElement el = page.currentFrame()->findFirstElement("#status");
 	if(el.isNull()) {
 		running = false;
-		emit failed("wrong page loaded");
+		emit failed("No Internet connection");
 	}
 
 	loaded = true;

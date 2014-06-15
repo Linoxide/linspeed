@@ -122,8 +122,7 @@ void MainWindow::testSucceeded(double downloadSpeed,
 
 void MainWindow::testFailed(const QString& text)
 {
-	qDebug() << text;
-	setStatusMessage("Test failed");
+	setStatusMessage(text);
 	startButton->setText("Try again");
 }
 
