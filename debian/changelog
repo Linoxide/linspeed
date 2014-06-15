@@ -1,3 +1,9 @@
+linspeed (0.3) unstable; urgency=low
+
+  * Refined configuration.
+
+ -- Michał Łuszczyk <michal.luszczyk@gmail.com>  Sun, 15 Jun 2014 22:05:34 +0000
+
 linspeed (0.2) unstable; urgency=low
 
   * Initial Release.
