@@ -9,6 +9,7 @@
 #include <QSizePolicy>
 #include <QStatusBar>
 #include "mainwindow.h"
+#include "aboutdialog.h"
 #include "reportdialog.h"
 #include "results.h"
 #include "theme.h"
@@ -283,7 +284,10 @@ void MainWindow::report() {
 	dialog->show();
 }
 
-void MainWindow::about() {}
+void MainWindow::about() {
+	AboutDialog *dialog = new AboutDialog(this);
+	dialog->show();
+}
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
