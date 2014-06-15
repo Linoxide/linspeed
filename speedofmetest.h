@@ -16,6 +16,7 @@ public:
 private slots:
 	void checkPage();
 	void pageLoaded(bool);
+	void failUnlessLoaded();
 
 private:
 	QWebPage page;
@@ -31,7 +32,6 @@ private:
 	void parseProgress();
 	void parseError();
 	void parseSuccess();
-
 };
 
 #endif

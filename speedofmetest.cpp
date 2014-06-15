@@ -5,6 +5,7 @@
 
 const int CHECK_INTERVAL = 1000;
 const int MAX_NUM_CHECK = 60;
+const int WAIT_FOR_LOAD = 5000;
 
 const QString TEST_URL = "http://ii-lo.tarnow.pl/~michal/speedtest.html";
 
@@ -108,6 +109,7 @@ void SpeedOfMeTest::start()
 	if(!running) {
 		timer->start(2000);
 		page.currentFrame()->load(TEST_URL);
+		QTimer::singleShot(WAIT_FOR_LOAD, this, SLOT(failUnlessLoaded()));
 		running = true;
 		loaded = false;
 		timesChecked = 0;
@@ -131,4 +133,13 @@ void SpeedOfMeTest::pageLoaded(bool)
 	}
 
 	loaded = true;
+}
+
+void SpeedOfMeTest::failUnlessLoaded()
+{
+	if(!loaded) {
+		emit failed("No Internet connection");
+		running = false;
+		timer->stop();
+	}
 }
