@@ -1,3 +1,4 @@
+#include <map>
 #include <QtGui>
 #include <QAction>
 #include <QActionGroup>
@@ -13,6 +14,8 @@
 #include "reportdialog.h"
 #include "results.h"
 #include "theme.h"
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), showFrame(true)
@@ -92,16 +95,35 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	connect(themesGroup, SIGNAL(triggered(QAction*)),
 		this, SLOT(switchTheme(QAction*)));
 
+    map<QString, QMenu*> themeSubmenus;
+
 	QList<Theme> themesList = Theme::listThemes();
 	for(int i=0; i<themesList.size(); ++i) {
 		Theme& cur = themesList[i];
-		QAction *action = themes->addAction(cur.name);
+        QString sizeName = cur.name.section(" ", -1);
+        QString nameWithoutSize = cur.name.section(" ", 0, -2);
+
+        if(themeSubmenus.find(nameWithoutSize) != themeSubmenus.end())
+            continue;
+
+        QMenu *curMenu = themes->addMenu(nameWithoutSize);
+        themeSubmenus[nameWithoutSize] = curMenu;
+    }
+
+	for(int i=0; i<themesList.size(); ++i) {
+		Theme& cur = themesList[i];
+        QString sizeName = cur.name.section(" ", -1);
+        QString nameWithoutSize = cur.name.section(" ", 0, -2);
+
+        QAction *action = themeSubmenus[nameWithoutSize]->addAction(sizeName);
 		action->setActionGroup(themesGroup);
 		action->setCheckable(true);
 
 		if(currentTheme == cur.name) {
 			action->setChecked(true);
 		}
+
+        action->setObjectName(cur.name);
 	}
 
 	context.exec(event->globalPos());
@@ -170,7 +192,7 @@ void MainWindow::updateStatusMessage()
 
 void MainWindow::switchTheme(QAction *action)
 {
-	loadTheme(action->text());
+	loadTheme(action->objectName());
 }
 
 void MainWindow::rearrangeLarge()
