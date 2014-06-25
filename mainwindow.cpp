@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 	startButton = new QPushButton("Begin Test");
 
 	statusMessage = new QLabel;
+	statusMessage->setAlignment(Qt::AlignCenter);
 
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(downloadLabel, 0, 0, Qt::AlignCenter);
@@ -193,7 +194,7 @@ void MainWindow::rearrangeLarge()
 	download->setFormat("%1 Mbps");
 	upload->setFormat("%1 Mbps");
 
-	statusFormat = "Status: %1";
+	statusFormat = "%1";
 	downloadLabel->show();
 	uploadLabel->show();
 
