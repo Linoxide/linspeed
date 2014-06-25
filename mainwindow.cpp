@@ -95,27 +95,20 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	connect(themesGroup, SIGNAL(triggered(QAction*)),
 		this, SLOT(switchTheme(QAction*)));
 
-    map<QString, QMenu*> themeSubmenus;
+	map<QString, QMenu*> themeSubmenus;
 
 	QList<Theme> themesList = Theme::listThemes();
 	for(int i=0; i<themesList.size(); ++i) {
 		Theme& cur = themesList[i];
-        QString sizeName = cur.name.section(" ", -1);
-        QString nameWithoutSize = cur.name.section(" ", 0, -2);
+		QString sizeName = cur.name.section(" ", -1);
+		QString nameWithoutSize = cur.name.section(" ", 0, -2);
 
-        if(themeSubmenus.find(nameWithoutSize) != themeSubmenus.end())
-            continue;
+		if(themeSubmenus.find(nameWithoutSize) == themeSubmenus.end()) {
+			QMenu *curMenu = themes->addMenu(nameWithoutSize);
+			themeSubmenus[nameWithoutSize] = curMenu;
+		}
 
-        QMenu *curMenu = themes->addMenu(nameWithoutSize);
-        themeSubmenus[nameWithoutSize] = curMenu;
-    }
-
-	for(int i=0; i<themesList.size(); ++i) {
-		Theme& cur = themesList[i];
-        QString sizeName = cur.name.section(" ", -1);
-        QString nameWithoutSize = cur.name.section(" ", 0, -2);
-
-        QAction *action = themeSubmenus[nameWithoutSize]->addAction(sizeName);
+		QAction *action = themeSubmenus[nameWithoutSize]->addAction(sizeName);
 		action->setActionGroup(themesGroup);
 		action->setCheckable(true);
 
@@ -123,7 +116,7 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 			action->setChecked(true);
 		}
 
-        action->setObjectName(cur.name);
+		action->setObjectName(cur.name);
 	}
 
 	context.exec(event->globalPos());
