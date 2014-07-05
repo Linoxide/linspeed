@@ -1,13 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="themes">
-	<file>layoutlarge_background.png</file>
-	<file>layoutlarge_button.png</file>
-	<file>layoutlarge_button_click.png</file>
-	<file>layoutlarge_button_hover.png</file>
-	<file>layoutsmall_background.png</file>
-	<file>layoutsmall_button.png</file>
-	<file>layoutsmall_button_click.png</file>
-	<file>layoutsmall_button_hover.png</file>
 	<file>stripedlarge_background.png</file>
 	<file>stripedlarge_button.png</file>
 	<file>stripedlarge_button_click.png</file>

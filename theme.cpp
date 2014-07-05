@@ -11,8 +11,6 @@ QList<Theme> Theme::listThemes()
 	QList<Theme> list;
 	list.append(Theme("Native Large", Large, "nativelarge"));
 	list.append(Theme("Native Small", Small, "nativesmall"));
-	list.append(Theme("Layout Large", Large, "layoutlarge"));
-	list.append(Theme("Layout Small", Small, "layoutsmall"));
 	list.append(Theme("Striped Large", Large, "stripedlarge"));
 
 	return list;
