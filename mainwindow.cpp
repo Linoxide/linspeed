@@ -58,8 +58,8 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(&this->test, SIGNAL(started()),
 		this, SLOT(testStarted()));
 	
-	connect(&this->test, SIGNAL(progressed(const QString&, int, double)),
-		this, SLOT(testProgressed(const QString&, int, double)));
+	connect(&this->test, SIGNAL(progressed(const QString&, double)),
+		this, SLOT(testProgressed(const QString&, double)));
 
 	Results results;
 	if(!results.empty()) {
@@ -143,7 +143,7 @@ void MainWindow::testFailed(const QString& text)
 }
 
 void MainWindow::testProgressed(const QString &testName,
-	int /*testProgress*/, double currentSpeed)
+	double currentSpeed)
 {
 	QString msg = "%1 in progress";
 	if(testName=="download") {

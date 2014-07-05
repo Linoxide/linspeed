@@ -42,19 +42,8 @@ void SpeedOfMeTest::tryGetResults()
 void SpeedOfMeTest::parseProgress()
 {
 	const QString &type = parseField("type");
-	int num_tests;
 
-	// should be retrieved from API, but it does not provide such info
-	if(type=="download")
-		num_tests = 3;
-	else if(type=="upload")
-		num_tests = 1;
-	else {
-		return; // don't crash just because of bad progress notification
-	}
-
-	emit progressed(type, ((parseField("pass").toInt()-1)*100+parseField("percentDone").toInt())/num_tests,
-		parseField("currentSpeed").toDouble());
+	emit progressed(type, parseField("currentSpeed").toDouble());
 }
 
 void SpeedOfMeTest::parseSuccess()

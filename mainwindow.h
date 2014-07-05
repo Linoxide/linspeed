@@ -18,11 +18,9 @@ protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
-	void testSucceeded(double download_speed,
-		double upload_speed);
+	void testSucceeded(double download_speed, double upload_speed);
 	void testFailed(const QString& text);
-	void testProgressed(const QString &testName,
-		int testProgress, double currentSpeed);
+	void testProgressed(const QString &testName, double currentSpeed);
 	void testStarted();
 	
 	void setStatusMessage(const QString &str);
