@@ -5,8 +5,8 @@
 
 const char ABOUT_TEXT[] = 
 "Linspeed by LinOxide<br>"
-"See <a href=\"http://linoxide.com/products/linspeed.html\">"
-"http://linoxide.com/products/linspeed.html</a> for details.<br>"
+"See <a href=\"http://linoxide.com/tools/linspeed.html\">"
+"http://linoxide.com/tools/linspeed.html</a> for details.<br>"
 "Contact: <a href=\"mailto:linspeed@linoxide.com\">"
 "linspeed@linoxide.com</a>.<br>"
 "<br>"
