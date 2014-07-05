@@ -19,12 +19,6 @@ public slots:
 protected:
 	double num;
 	QString format;
-
-	static const double longestNum = 124.23;
-
-	void setLabelSize(double longestValue);
-
-
 };
 
 #endif
