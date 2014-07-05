@@ -14,10 +14,9 @@ class MainWindow : public QMainWindow {
 public:
 	MainWindow(QWidget *parent = 0);
 
-protected:
+protected slots:
 	void contextMenuEvent(QContextMenuEvent *event);
 
-private slots:
 	void testSucceeded(double download_speed, double upload_speed);
 	void testFailed(const QString& text);
 	void testProgressed(const QString &testName, double currentSpeed);

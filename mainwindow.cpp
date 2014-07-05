@@ -81,7 +81,8 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 	QAction *showFrameAction = context.addAction("Show window &frame");
 	showFrameAction->setCheckable(true);
 	showFrameAction->setChecked(showFrame);
-	connect(showFrameAction, SIGNAL(toggled(bool)), this, SLOT(toggleShowFrame(bool)));
+	connect(showFrameAction, SIGNAL(toggled(bool)), 
+		this, SLOT(toggleShowFrame(bool)));
 	context.addSeparator();
 
 	context.addAction("&Report", this, SLOT(report()));
