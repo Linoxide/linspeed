@@ -4,5 +4,9 @@
 	<file>stripedlarge_button.png</file>
 	<file>stripedlarge_button_click.png</file>
 	<file>stripedlarge_button_hover.png</file>
+	<file>bordeauxlarge_background.png</file>
+	<file>bordeauxlarge_button.png</file>
+	<file>bordeauxlarge_button_click.png</file>
+	<file>bordeauxlarge_button_hover.png</file>
 </qresource>
 </RCC>
