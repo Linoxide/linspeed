@@ -8,5 +8,17 @@
 	<file>bordeauxlarge_button.png</file>
 	<file>bordeauxlarge_button_click.png</file>
 	<file>bordeauxlarge_button_hover.png</file>
+	<file>bordeauxsmall_background.png</file>
+	<file>bordeauxsmall_button.png</file>
+	<file>bordeauxsmall_button_click.png</file>
+	<file>bordeauxsmall_button_hover.png</file>
+	<file>chartreuselarge_background.png</file>
+	<file>chartreuselarge_button.png</file>
+	<file>chartreuselarge_button_click.png</file>
+	<file>chartreuselarge_button_hover.png</file>
+	<file>chartreusesmall_background.png</file>
+	<file>chartreusesmall_button.png</file>
+	<file>chartreusesmall_button_click.png</file>
+	<file>chartreusesmall_button_hover.png</file>
 </qresource>
 </RCC>

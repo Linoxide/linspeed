@@ -246,7 +246,7 @@ void MainWindow::setStyles(const QString& filename)
 			"QPushButton:pressed { "
 			"background-image: "
 			"url(:/themes/%3.png); "
-			"}\n").arg(fnBtn, fnClick, fnHover);
+			"}\n").arg(fnBtn, fnHover, fnClick);
 
 		styleBackground = QString(
 			"MainWindow { "

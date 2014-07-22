@@ -13,6 +13,9 @@ QList<Theme> Theme::listThemes()
 	list.append(Theme("Native Small", Small, "nativesmall"));
 	list.append(Theme("Striped Large", Large, "stripedlarge"));
 	list.append(Theme("Bordeaux Large", Large, "bordeauxlarge"));
+	list.append(Theme("Bordeaux Small", Small, "bordeauxsmall"));
+	list.append(Theme("Chartreuse Large", Large, "chartreuselarge"));
+	list.append(Theme("Chartreuse Small", Small, "chartreusesmall"));
 
 	return list;
 }
