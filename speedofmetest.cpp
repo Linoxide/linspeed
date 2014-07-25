@@ -6,9 +6,9 @@
 const int CHECK_INTERVAL = 100;
 const int MAX_NUM_CHECK = 1200;
 const int WAIT_FOR_LOAD = 10000;
-const int WAIT_BEFORE_RUNNING = 2000;
+const int WAIT_BEFORE_RUNNING = 2500;
 
-const QString TEST_URL = "http://ii-lo.tarnow.pl/~michal/speedtest.html";
+const QString TEST_URL = "http://linoxide.com/speedtest/speedtest.html";
 
 SpeedOfMeTest::SpeedOfMeTest()
 {

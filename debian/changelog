@@ -1,3 +1,9 @@
+linspeed (0.6) unstable; urgency=low
+
+  * Fixed Linoxide URLs.
+
+ -- Michał Łuszczyk <michal.luszczyk@gmail.com>  Fri, 25 Jul 2014 10:59:05 +0200
+
 linspeed (0.5) unstable; urgency=low
 
   * Added new themes.
