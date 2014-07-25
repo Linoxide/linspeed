@@ -11,5 +11,5 @@ Homepage: http://linoxide.com/products/linspeed.html
 Package: linspeed
 Architecture: i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Desktop widget to measure your Internet script
+Description: Desktop widget to test internet speed
  Linspeed is a Qt application by LinOxide to measure Internet bandwidth.

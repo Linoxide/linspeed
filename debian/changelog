@@ -1,3 +1,9 @@
+linspeed (1.0) unstable; urgency=low
+
+  * First public release.
+
+ -- Michał Łuszczyk <michal.luszczyk@gmail.com>  Sat, 26 Jul 2014 00:38:26 +0200
+
 linspeed (0.6) unstable; urgency=low
 
   * Fixed Linoxide URLs.
