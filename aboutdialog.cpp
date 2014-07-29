@@ -5,9 +5,10 @@
 
 const char ABOUT_TEXT[] = 
 "Linspeed by LinOxide<br>"
+"Version 1.0<br>"
+"<br>"
 "See <a href=\"http://linoxide.com/linspeed/\">"
 "http://linoxide.com/linspeed/</a> for details.<br>"
-"<br>"
 "This application is based on <a href=\"http://speedof.me\">SpeedOf.Me API</a>.";
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
